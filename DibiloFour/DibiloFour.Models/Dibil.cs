@@ -1,21 +1,24 @@
 ﻿namespace DibiloFour.Models
 {
-    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public class Dibil
     {
         #region Fields
+        private ICollection<Item> inventory;
         #endregion
 
         #region Constructor
-        public Dibil()
+        public Dibil(string name, int health, int lockpickingSkill, int speechSkill, int coins)
         {
-
+            this.Name = name;
+            this.Health = health;
+            this.LockpickingSkill = lockpickingSkill;
+            this.SpeechSkill = speechSkill;
+            this.Coins = coins;
+            this.inventory = new HashSet<Item>();
         }
         #endregion
 
@@ -23,8 +26,42 @@
         [Key]
         public int Id { get; set; }
 
-        // TODO: Name, Health, Armour, Attack, Inventory (collection of Item model class)
-        // skills (lockpicking skills etc)
+        [Required, MaxLength(100)]
+        public string Name { get; set; }
+
+        [Required]
+        public int Health { get; set; }
+
+        [Required]
+        public int LockpickingSkill { get; set; }
+
+        [Required]
+        public int SpeechSkill { get; set; }
+
+        [Required]
+        public int Coins { get; set; }
+
+        [ForeignKey("CurrentArmour")]
+        public int? CurrentArmourItemId { get; set; }
+
+        public Item CurrentArmour { get; set; }
+
+        [ForeignKey("CurrentWeapon")]
+        public int? CurrentWeaponItemId { get; set; }
+
+        public Item CurrentWeapon { get; set; }
+
+        public virtual ICollection<Item> Inventory
+        {
+            get
+            {
+                return this.inventory;
+            }
+            set
+            {
+                this.inventory = value;
+            }
+        }
         #endregion
     }
 }

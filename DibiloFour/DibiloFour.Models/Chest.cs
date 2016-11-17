@@ -7,7 +7,7 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    class Chest
+    public class Chest
     {
         #region Fields
         #endregion
@@ -24,6 +24,7 @@
         public int Id { get; set; }
 
         // TODO: LockTypeId of lock, Inventory (collection of Item model class)
+        // *chest location... maybe.
         #endregion
     }
 }

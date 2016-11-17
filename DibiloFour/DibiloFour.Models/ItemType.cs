@@ -7,7 +7,7 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    class ItemType
+    public class ItemType
     {
         #region Fields
         #endregion
@@ -23,7 +23,7 @@
         [Key]
         public int Id { get; set; }
 
-        // TODO: Name, skill level required
+        // TODO: Name (Health Potion, Book etc.)
         #endregion
     }
 }

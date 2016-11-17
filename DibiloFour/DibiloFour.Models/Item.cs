@@ -7,7 +7,7 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    class Item
+    public class Item
     {
         #region Fields
         #endregion
@@ -24,6 +24,7 @@
         public int Id { get; set; }
 
         // TODO: Name, Info (What does it do), TypeId (heal, boost, skill book etc.), Effect (20, -20 etc.)
+        // item value (base price of item that is traded in shop)
         #endregion
     }
 }

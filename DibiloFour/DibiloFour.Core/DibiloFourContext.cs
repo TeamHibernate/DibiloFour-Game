@@ -1,5 +1,6 @@
 namespace DibiloFour.Core
 {
+    using Models;
     using System;
     using System.Data.Entity;
     using System.Linq;
@@ -12,6 +13,8 @@ namespace DibiloFour.Core
         }
 
         // TODO: Add DbSet-s of different model classes
+
+        public virtual IDbSet<Dibil> Dibils { get; set; }
 
         // Add a DbSet for each entity type that you want to include in your model. For more information 
         // on configuring and using a Code First model, see http://go.microsoft.com/fwlink/?LinkId=390109.

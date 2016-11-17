@@ -7,7 +7,7 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    class LockType
+    public class LockType
     {
         #region Fields
         #endregion
