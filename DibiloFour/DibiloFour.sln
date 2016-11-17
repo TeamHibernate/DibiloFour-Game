@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DibiloFour.Models", "DibiloFour.Models\DibiloFour.Models.csproj", "{771B162C-D5FC-4E5F-9C9B-C4B015DA76C1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DibiloFour.Core", "DibiloFour.Core\DibiloFour.Core.csproj", "{CBE11DD3-320D-439B-9FDE-F01F91C20A14}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DibiloFour.ConsoleApplication", "DibiloFour.ConsoleApplication\DibiloFour.ConsoleApplication.csproj", "{4BA210DC-B77F-4117-960C-9C5E89655F52}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DibiloFour.Models.Tests", "DibiloFour.Models.Tests\DibiloFour.Models.Tests.csproj", "{E1770553-A98C-4F6F-87B3-79FEC2A6F2CB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DibiloFour.Core.Tests", "DibiloFour.Core.Tests\DibiloFour.Core.Tests.csproj", "{4630DB22-8C0B-44FE-94B9-3CEAB77F6471}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{771B162C-D5FC-4E5F-9C9B-C4B015DA76C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{771B162C-D5FC-4E5F-9C9B-C4B015DA76C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{771B162C-D5FC-4E5F-9C9B-C4B015DA76C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{771B162C-D5FC-4E5F-9C9B-C4B015DA76C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBE11DD3-320D-439B-9FDE-F01F91C20A14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBE11DD3-320D-439B-9FDE-F01F91C20A14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBE11DD3-320D-439B-9FDE-F01F91C20A14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBE11DD3-320D-439B-9FDE-F01F91C20A14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BA210DC-B77F-4117-960C-9C5E89655F52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BA210DC-B77F-4117-960C-9C5E89655F52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BA210DC-B77F-4117-960C-9C5E89655F52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BA210DC-B77F-4117-960C-9C5E89655F52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1770553-A98C-4F6F-87B3-79FEC2A6F2CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1770553-A98C-4F6F-87B3-79FEC2A6F2CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1770553-A98C-4F6F-87B3-79FEC2A6F2CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1770553-A98C-4F6F-87B3-79FEC2A6F2CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4630DB22-8C0B-44FE-94B9-3CEAB77F6471}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4630DB22-8C0B-44FE-94B9-3CEAB77F6471}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4630DB22-8C0B-44FE-94B9-3CEAB77F6471}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4630DB22-8C0B-44FE-94B9-3CEAB77F6471}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
