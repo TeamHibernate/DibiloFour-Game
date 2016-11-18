@@ -10,15 +10,19 @@ namespace DibiloFour.Core
         public DibiloFourContext()
             : base("name=DibiloFourContext")
         {
+            Database.SetInitializer<DibiloFourContext>(new DibiloFourDBInitializer());
         }
-
-        // TODO: Add DbSet-s of different model classes
 
         public virtual IDbSet<Dibil> Dibils { get; set; }
 
-        // Add a DbSet for each entity type that you want to include in your model. For more information 
-        // on configuring and using a Code First model, see http://go.microsoft.com/fwlink/?LinkId=390109.
+        public virtual IDbSet<Chest> Chests { get; set; }
 
-        // public virtual DbSet<MyEntity> MyEntities { get; set; }
+        public virtual IDbSet<Item> Items { get; set; }
+
+        public virtual IDbSet<ItemShop> ItemShops { get; set; }
+
+        public virtual IDbSet<ItemType> ItemTypes { get; set; }
+
+        public virtual IDbSet<LockType> LockTypes { get; set; }
     }
 }

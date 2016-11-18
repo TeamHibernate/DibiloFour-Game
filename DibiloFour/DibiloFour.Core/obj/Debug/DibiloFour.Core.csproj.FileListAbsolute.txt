@@ -1,0 +1,12 @@
+C:\Users\Даниел\Documents\GitHub\DibiloFour-Game\DibiloFour\DibiloFour.Core\bin\Debug\DibiloFour.Core.dll.config
+C:\Users\Даниел\Documents\GitHub\DibiloFour-Game\DibiloFour\DibiloFour.Core\bin\Debug\DibiloFour.Core.dll
+C:\Users\Даниел\Documents\GitHub\DibiloFour-Game\DibiloFour\DibiloFour.Core\bin\Debug\DibiloFour.Core.pdb
+C:\Users\Даниел\Documents\GitHub\DibiloFour-Game\DibiloFour\DibiloFour.Core\bin\Debug\DibiloFour.Models.dll
+C:\Users\Даниел\Documents\GitHub\DibiloFour-Game\DibiloFour\DibiloFour.Core\bin\Debug\EntityFramework.dll
+C:\Users\Даниел\Documents\GitHub\DibiloFour-Game\DibiloFour\DibiloFour.Core\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Даниел\Documents\GitHub\DibiloFour-Game\DibiloFour\DibiloFour.Core\bin\Debug\DibiloFour.Models.pdb
+C:\Users\Даниел\Documents\GitHub\DibiloFour-Game\DibiloFour\DibiloFour.Core\bin\Debug\EntityFramework.xml
+C:\Users\Даниел\Documents\GitHub\DibiloFour-Game\DibiloFour\DibiloFour.Core\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Даниел\Documents\GitHub\DibiloFour-Game\DibiloFour\DibiloFour.Core\obj\Debug\DibiloFour.Core.csprojResolveAssemblyReference.cache
+C:\Users\Даниел\Documents\GitHub\DibiloFour-Game\DibiloFour\DibiloFour.Core\obj\Debug\DibiloFour.Core.dll
+C:\Users\Даниел\Documents\GitHub\DibiloFour-Game\DibiloFour\DibiloFour.Core\obj\Debug\DibiloFour.Core.pdb

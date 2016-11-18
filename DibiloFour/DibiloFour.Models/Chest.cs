@@ -1,21 +1,19 @@
 ﻿namespace DibiloFour.Models
 {
-    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public class Chest
     {
         #region Fields
+        private ICollection<Item> inventory;
         #endregion
 
         #region Constructor
         public Chest()
         {
-
+            this.inventory = new HashSet<Item>();
         }
         #endregion
 
@@ -23,8 +21,24 @@
         [Key]
         public int Id { get; set; }
 
-        // TODO: LockTypeId of lock, Inventory (collection of Item model class)
-        // *chest location... maybe.
+        [ForeignKey("LockType")]
+        public int LockTypeId { get; set; }
+
+        public LockType LockType { get; set; }
+
+        public virtual ICollection<Item> Inventory
+        {
+            get
+            {
+                return this.inventory;
+            }
+            set
+            {
+                this.inventory = value;
+            }
+        }
+        
+        // Note: *chest location... maybe.
         #endregion
     }
 }

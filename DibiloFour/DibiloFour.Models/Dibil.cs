@@ -39,7 +39,7 @@
         public int SpeechSkill { get; set; }
 
         [Required]
-        public int Coins { get; set; }
+        public decimal Coins { get; set; }
 
         [ForeignKey("CurrentArmour")]
         public int? CurrentArmourItemId { get; set; }

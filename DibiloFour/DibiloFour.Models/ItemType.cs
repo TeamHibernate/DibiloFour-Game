@@ -23,7 +23,8 @@
         [Key]
         public int Id { get; set; }
 
-        // TODO: Name (Health Potion, Book etc.)
+        [Required, MaxLength(100)]
+        public string Name { get; set; }
         #endregion
     }
 }

@@ -1,11 +1,7 @@
 ﻿namespace DibiloFour.Models
 {
-    using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public class Item
     {
@@ -23,8 +19,22 @@
         [Key]
         public int Id { get; set; }
 
-        // TODO: Name, Info (What does it do), TypeId (heal, boost, skill book etc.), Effect (20, -20 etc.)
-        // item value (base price of item that is traded in shop)
+        [Required, MaxLength(100)]
+        public string Name { get; set; }
+
+        [MaxLength(200)]
+        public string Info { get; set; }
+
+        [Required, ForeignKey("ItemType")]
+        public int ItemTypeId { get; set; }
+
+        public ItemType ItemType { get; set; }
+
+        [Required]
+        public int Effect { get; set; }
+
+        [Required]
+        public decimal ValueInCoin { get; set; }
         #endregion
     }
 }
