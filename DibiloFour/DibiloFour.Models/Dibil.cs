@@ -7,7 +7,6 @@
     public class Dibil
     {
         #region Fields
-        private ICollection<Item> inventory;
         #endregion
 
         #region Constructor
@@ -18,7 +17,6 @@
             this.LockpickingSkill = lockpickingSkill;
             this.SpeechSkill = speechSkill;
             this.Coins = coins;
-            this.inventory = new HashSet<Item>();
         }
         #endregion
 
@@ -51,17 +49,15 @@
 
         public Item CurrentWeapon { get; set; }
 
-        public virtual ICollection<Item> Inventory
-        {
-            get
-            {
-                return this.inventory;
-            }
-            set
-            {
-                this.inventory = value;
-            }
-        }
+        [ForeignKey("CurrentLocation")]
+        public int? CurrentLocationId { get; set; }
+
+        public Location CurrentLocation { get; set; }
+
+        [ForeignKey("Inventory")]
+        public int InventoryId { get; set; }
+
+        public Inventory Inventory { get; set; }
         #endregion
     }
 }

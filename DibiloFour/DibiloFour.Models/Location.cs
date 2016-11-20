@@ -3,30 +3,17 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
 
-    public class ItemType
+    public class Location
     {
-        #region Fields
-        #endregion
-
         #region Constructors
-        public ItemType()
+        public Location()
         {
 
-        }
-
-        public ItemType(string name)
-        {
-            this.Name = name;
-        }
-
-        public ItemType(int id, string name)
-        {
-            this.Id = id;
-            this.Name = name;
         }
         #endregion
 
@@ -36,6 +23,14 @@
 
         [Required, MaxLength(100)]
         public string Name { get; set; }
+
+        [MaxLength(200)]
+        public string Description { get; set; }
+
+        [ForeignKey("LocationType")]
+        public int LocationTypeId { get; set; }
+
+        public LocationType LocationType { get; set; }
         #endregion
     }
 }

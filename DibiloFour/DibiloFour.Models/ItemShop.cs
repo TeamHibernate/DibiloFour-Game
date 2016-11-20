@@ -7,13 +7,12 @@
     public class ItemShop
     {
         #region Fields
-        private ICollection<Item> inventory;
         #endregion
 
         #region Constructor
         public ItemShop()
         {
-            this.inventory = new HashSet<Item>();
+            
         }
         #endregion
 
@@ -24,25 +23,25 @@
         [Required, MaxLength(100)]
         public string Name { get; set; }
 
-        [Required, ForeignKey("Seller")]
-        public int SellerId { get; set; }
+        /// <summary>
+        /// SellerId represents Dibil that sell in the ItemShop
+        /// his SpeechSkill along with buyer SpeechSkill and
+        /// Item base value make the final price of Item
+        /// </summary>
+        [ForeignKey("Seller")]
+        public int? SellerId { get; set; }
 
         public Dibil Seller { get; set; }
 
-        public virtual ICollection<Item> Inventory
-        {
-            get
-            {
-                return this.inventory;
-            }
-            set
-            {
-                this.inventory = value;
-            }
-        }
+        [ForeignKey("Location")]
+        public int? LocationId { get; set; }
 
-        // Note: Dibil sell items (his speech skill, buyer speech skill and base item value form price)
-        // *item shop location... maybe.
+        public Location Location { get; set; }
+
+        [ForeignKey("Inventory")]
+        public int InventoryId { get; set; }
+
+        public Inventory Inventory { get; set; }
         #endregion
     }
 }

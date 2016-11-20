@@ -23,7 +23,7 @@
         public string Name { get; set; }
 
         [MaxLength(200)]
-        public string Info { get; set; }
+        public string Description { get; set; }
 
         [Required, ForeignKey("ItemType")]
         public int ItemTypeId { get; set; }
@@ -35,6 +35,11 @@
 
         [Required]
         public decimal ValueInCoin { get; set; }
+
+        [ForeignKey("Inventory")]
+        public int InventoryId { get; set; }
+
+        public Inventory Inventory { get; set; }
         #endregion
     }
 }

@@ -19,10 +19,16 @@ namespace DibiloFour.Core
 
         public virtual IDbSet<Item> Items { get; set; }
 
+        public virtual IDbSet<Inventory> Inventories { get; set; }
+
+        public virtual IDbSet<Location> Locations { get; set; }
+
         public virtual IDbSet<ItemShop> ItemShops { get; set; }
 
         public virtual IDbSet<ItemType> ItemTypes { get; set; }
 
         public virtual IDbSet<LockType> LockTypes { get; set; }
+
+        public virtual IDbSet<LocationType> LocationTypes { get; set; }
     }
 }

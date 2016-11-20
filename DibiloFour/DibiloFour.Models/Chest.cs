@@ -7,13 +7,12 @@
     public class Chest
     {
         #region Fields
-        private ICollection<Item> inventory;
         #endregion
 
         #region Constructor
         public Chest()
         {
-            this.inventory = new HashSet<Item>();
+            
         }
         #endregion
 
@@ -26,19 +25,15 @@
 
         public LockType LockType { get; set; }
 
-        public virtual ICollection<Item> Inventory
-        {
-            get
-            {
-                return this.inventory;
-            }
-            set
-            {
-                this.inventory = value;
-            }
-        }
-        
-        // Note: *chest location... maybe.
+        [ForeignKey("Location")]
+        public int? LocationId { get; set; }
+
+        public Location Location { get; set; }
+
+        [ForeignKey("Inventory")]
+        public int InventoryId { get; set; }
+
+        public Inventory Inventory { get; set; }
         #endregion
     }
 }

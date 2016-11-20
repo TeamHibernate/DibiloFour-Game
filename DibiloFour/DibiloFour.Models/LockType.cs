@@ -7,10 +7,23 @@
         #region Fields
         #endregion
 
-        #region Constructor
+        #region Constructors
         public LockType()
         {
 
+        }
+
+        public LockType(string name, int skillLevelRequired)
+        {
+            this.Name = name;
+            this.SkillLevelRequired = skillLevelRequired;
+        }
+
+        public LockType(int id, string name, int skillLevelRequired)
+        {
+            this.Id = id;
+            this.Name = name;
+            this.SkillLevelRequired = skillLevelRequired;
         }
         #endregion
 

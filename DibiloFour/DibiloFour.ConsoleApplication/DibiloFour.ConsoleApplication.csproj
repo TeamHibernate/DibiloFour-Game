@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4BA210DC-B77F-4117-960C-9C5E89655F52}</ProjectGuid>
+    <ProjectGuid>{616942E9-825D-4D08-BE90-19875CAB41E1}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DibiloFour.ConsoleApplication</RootNamespace>
@@ -61,7 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DibiloFour.Core\DibiloFour.Core.csproj">
-      <Project>{cbe11dd3-320d-439b-9fde-f01f91c20a14}</Project>
+      <Project>{CBE11DD3-320D-439B-9FDE-F01F91C20A14}</Project>
       <Name>DibiloFour.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\DibiloFour.Models\DibiloFour.Models.csproj">

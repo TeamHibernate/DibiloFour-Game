@@ -7,23 +7,20 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    public class ItemType
+    public class LocationType
     {
-        #region Fields
-        #endregion
-
         #region Constructors
-        public ItemType()
+        public LocationType()
         {
 
         }
 
-        public ItemType(string name)
+        public LocationType(string name)
         {
             this.Name = name;
         }
 
-        public ItemType(int id, string name)
+        public LocationType(int id, string name)
         {
             this.Id = id;
             this.Name = name;

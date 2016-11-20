@@ -51,9 +51,12 @@
   <ItemGroup>
     <Compile Include="Chest.cs" />
     <Compile Include="Dibil.cs" />
+    <Compile Include="Inventory.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="ItemShop.cs" />
     <Compile Include="ItemType.cs" />
+    <Compile Include="Location.cs" />
+    <Compile Include="LocationType.cs" />
     <Compile Include="LockType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

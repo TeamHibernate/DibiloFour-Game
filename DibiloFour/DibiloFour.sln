@@ -7,11 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DibiloFour.Models", "Dibilo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DibiloFour.Core", "DibiloFour.Core\DibiloFour.Core.csproj", "{CBE11DD3-320D-439B-9FDE-F01F91C20A14}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DibiloFour.ConsoleApplication", "DibiloFour.ConsoleApplication\DibiloFour.ConsoleApplication.csproj", "{4BA210DC-B77F-4117-960C-9C5E89655F52}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DibiloFour.Models.Tests", "DibiloFour.Models.Tests\DibiloFour.Models.Tests.csproj", "{E1770553-A98C-4F6F-87B3-79FEC2A6F2CB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DibiloFour.Core.Tests", "DibiloFour.Core.Tests\DibiloFour.Core.Tests.csproj", "{4630DB22-8C0B-44FE-94B9-3CEAB77F6471}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DibiloFour.ConsoleApplication", "DibiloFour.ConsoleApplication\DibiloFour.ConsoleApplication.csproj", "{616942E9-825D-4D08-BE90-19875CAB41E1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,10 +27,6 @@ Global
 		{CBE11DD3-320D-439B-9FDE-F01F91C20A14}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CBE11DD3-320D-439B-9FDE-F01F91C20A14}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CBE11DD3-320D-439B-9FDE-F01F91C20A14}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4BA210DC-B77F-4117-960C-9C5E89655F52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4BA210DC-B77F-4117-960C-9C5E89655F52}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4BA210DC-B77F-4117-960C-9C5E89655F52}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4BA210DC-B77F-4117-960C-9C5E89655F52}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E1770553-A98C-4F6F-87B3-79FEC2A6F2CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E1770553-A98C-4F6F-87B3-79FEC2A6F2CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E1770553-A98C-4F6F-87B3-79FEC2A6F2CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -39,6 +35,10 @@ Global
 		{4630DB22-8C0B-44FE-94B9-3CEAB77F6471}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4630DB22-8C0B-44FE-94B9-3CEAB77F6471}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4630DB22-8C0B-44FE-94B9-3CEAB77F6471}.Release|Any CPU.Build.0 = Release|Any CPU
+		{616942E9-825D-4D08-BE90-19875CAB41E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{616942E9-825D-4D08-BE90-19875CAB41E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{616942E9-825D-4D08-BE90-19875CAB41E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{616942E9-825D-4D08-BE90-19875CAB41E1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
