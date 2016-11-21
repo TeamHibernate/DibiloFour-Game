@@ -13,6 +13,27 @@
         {
 
         }
+
+        public Item(string name, string description, int itemTypeId, int effect, decimal valueInCoin, int inventoryId)
+        {
+            this.Name = name;
+            this.Description = description;
+            this.ItemTypeId = itemTypeId;
+            this.Effect = effect;
+            this.ValueInCoin = valueInCoin;
+            this.InventoryId = inventoryId;
+        }
+
+        public Item(int id, string name, string description, int itemTypeId, int effect, decimal valueInCoin, int inventoryId)
+        {
+            this.Id = id;
+            this.Name = name;
+            this.Description = description;
+            this.ItemTypeId = itemTypeId;
+            this.Effect = effect;
+            this.ValueInCoin = valueInCoin;
+            this.InventoryId = inventoryId;
+        }
         #endregion
 
         #region Properties
@@ -22,7 +43,7 @@
         [Required, MaxLength(100)]
         public string Name { get; set; }
 
-        [MaxLength(200)]
+        [MaxLength(1000)]
         public string Description { get; set; }
 
         [Required, ForeignKey("ItemType")]

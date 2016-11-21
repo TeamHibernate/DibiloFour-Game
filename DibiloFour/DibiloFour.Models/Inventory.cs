@@ -14,6 +14,12 @@ namespace DibiloFour.Models
         {
             this.content = new HashSet<Item>();
         }
+
+        public Inventory(int id)
+        {
+            this.Id = id;
+            this.content = new HashSet<Item>();
+        }
         #endregion
 
         #region Properties

@@ -14,6 +14,23 @@
         {
             
         }
+
+        public ItemShop(string name, int sellerId, int locationId, int inventoryId)
+        {
+            this.Name = name;
+            this.SellerId = sellerId;
+            this.LocationId = locationId;
+            this.InventoryId = inventoryId;
+        }
+
+        public ItemShop(int id, string name, int sellerId, int locationId, int inventoryId)
+        {
+            this.Id = id;
+            this.Name = name;
+            this.SellerId = sellerId;
+            this.LocationId = locationId;
+            this.InventoryId = inventoryId;
+        }
         #endregion
 
         #region Properties

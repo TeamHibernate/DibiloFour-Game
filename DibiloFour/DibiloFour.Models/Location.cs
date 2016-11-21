@@ -15,6 +15,21 @@
         {
 
         }
+
+        public Location(string name, string description, int locationTypeId)
+        {
+            this.Name = name;
+            this.Description = description;
+            this.LocationTypeId = locationTypeId;
+        }
+
+        public Location(int id, string name, string description, int locationTypeId)
+        {
+            this.Id = id;
+            this.Name = name;
+            this.Description = description;
+            this.LocationTypeId = locationTypeId;
+        }
         #endregion
 
         #region Properties
@@ -24,7 +39,7 @@
         [Required, MaxLength(100)]
         public string Name { get; set; }
 
-        [MaxLength(200)]
+        [MaxLength(1000)]
         public string Description { get; set; }
 
         [ForeignKey("LocationType")]

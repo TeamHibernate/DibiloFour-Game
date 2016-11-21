@@ -10,6 +10,11 @@
         #endregion
 
         #region Constructor
+        public Dibil()
+        {
+
+        }
+
         public Dibil(string name, int health, int lockpickingSkill, int speechSkill, int coins)
         {
             this.Name = name;
@@ -17,6 +22,28 @@
             this.LockpickingSkill = lockpickingSkill;
             this.SpeechSkill = speechSkill;
             this.Coins = coins;
+        }
+
+        public Dibil(int id, string name, int health, int lockpickingSkill, int speechSkill, int coins)
+        {
+            this.Id = id;
+            this.Name = name;
+            this.Health = health;
+            this.LockpickingSkill = lockpickingSkill;
+            this.SpeechSkill = speechSkill;
+            this.Coins = coins;
+            this.Inventory = new Inventory();
+        }
+
+        public Dibil(int id, string name, int health, int lockpickingSkill, int speechSkill, int coins, int inventoryId)
+        {
+            this.Id = id;
+            this.Name = name;
+            this.Health = health;
+            this.LockpickingSkill = lockpickingSkill;
+            this.SpeechSkill = speechSkill;
+            this.Coins = coins;
+            this.InventoryId = inventoryId;
         }
         #endregion
 

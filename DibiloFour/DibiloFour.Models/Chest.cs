@@ -14,6 +14,14 @@
         {
             
         }
+
+        public Chest(int id, int lockTypeId, int locationId, int inventoryId)
+        {
+            this.Id = id;
+            this.LockTypeId = lockTypeId;
+            this.LocationId = locationId;
+            this.InventoryId = inventoryId;
+        }
         #endregion
 
         #region Properties
