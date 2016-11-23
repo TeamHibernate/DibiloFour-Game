@@ -1,19 +1,18 @@
-﻿using DibiloFour.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DibiloFour.ConsoleApplication
+﻿namespace DibiloFour.ConsoleApplication
 {
+    using DibiloFour.Core.Engine;
+    using DibiloFour.Core.Interfaces;
+    using DibiloFour.Core.IO;
+
     class Program
     {
         static void Main(string[] args)
         {
-            DibiloFourContext context = new DibiloFourContext();
+            IInputReader inputReader = new ConsoleReader();
+            IOutputWriter outputWriter = new ConsoleWriter();
 
-            context.Chests.Count();
+            IEngine engine = new Engine(inputReader, outputWriter);
+            engine.Run();
         }
     }
 }
