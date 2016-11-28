@@ -60,15 +60,15 @@
             context.Inventories.Add(treasureChestTwo);
 
             // Initialize Dibils
-            Dibil OwenShopKeeper = new Dibil(1, "Owen", 100, 0, 5, 1000, 1)
+            Dibil OwenShopKeeper = new Dibil(1, "Owen", 100, 0, 5, 1000, 1, false)
             {
                 CurrentLocationId = 1
             };
-            Dibil NaskoTheBandit = new Dibil(2, "Nasko", 100, 5, 5, 500, 3)
+            Dibil NaskoTheBandit = new Dibil(2, "Nasko", 100, 5, 5, 500, 3, false)
             {
                 CurrentLocationId = 3
             };
-            Dibil KermitTheFarmer = new Dibil(3, "Kermit", 100, 1, 1, 5, 4)
+            Dibil KermitTheFarmer = new Dibil(3, "Kermit", 100, 1, 1, 5, 4, false)
             {
                 CurrentLocationId = 2
             };
