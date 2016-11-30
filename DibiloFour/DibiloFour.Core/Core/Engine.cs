@@ -1,6 +1,7 @@
 ﻿namespace DibiloFour.Core.Core
 {
     using System;
+    using System.Text;
     using Interfaces;
     using Models;
 
@@ -60,19 +61,33 @@
             var player = this.CurrentActivePlayerCheck();
             if (player == null)
             {
-                this.TaskManager.NewGame();
+                this.TaskManager.ProcessCommand(new []{"newgame"});
             }
             else
             {
                 this.TaskManager.CurrentActivePlayer = player;
             }
 
+            this.StartGameInstructions();
+
             while (true)
             {
                 string commandArgs = this.InputReader.ReadLine().Trim();
 
                 this.TaskManager.ProcessCommand(commandArgs.Split());
+
+                this.OutputWriter.WriteLine(new string('-', 50));
             }
+        }
+
+        private void StartGameInstructions()
+        {
+            StringBuilder output = new StringBuilder();
+            output.AppendLine("newgame - Create's new game.");
+            output.AppendLine("loadgame - Load last saved game.");
+            output.AppendLine("exit - Save game and exit application.");
+
+            this.OutputWriter.Write(output.ToString());
         }
 
         private void WelcomeScreen()

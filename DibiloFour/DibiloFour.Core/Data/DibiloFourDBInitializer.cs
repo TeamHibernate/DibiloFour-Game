@@ -78,7 +78,7 @@
             context.Dibils.Add(KermitTheFarmer);
 
             // Initialize ItemShops
-            ItemShop OwenShop = new ItemShop(1, "Owen Shop", 1, 1, 2);
+            ItemShop OwenShop = new ItemShop(1, "Owen Shop", 1000M, 1, 1, 2);
 
             context.ItemShops.Add(OwenShop);
 

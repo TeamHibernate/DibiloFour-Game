@@ -9,5 +9,10 @@
         {
             Console.WriteLine(output);
         }
+
+        public void Write(string output)
+        {
+            Console.Write(output);
+        }
     }
 }

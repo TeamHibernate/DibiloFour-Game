@@ -8,8 +8,13 @@
 
     public class TaskManager
     {
+        #region Fields
+
         private readonly DibiloFourContext context;
 
+        #endregion
+
+        #region Constructors
         public TaskManager(DibiloFourContext context)
         {
             this.context = context;
@@ -28,12 +33,18 @@
             this.CurrentActivePlayer = currentActivePlayer;
         }
 
+        #endregion
+
+        #region Properties
         public IInputReader Reader { get; set; }
 
         public IOutputWriter Writer { get; set; }
 
         public Dibil CurrentActivePlayer { get; set; }
 
+        #endregion
+
+        #region Methods
         internal void ProcessCommand(string[] commandArgs)
         {
             switch (commandArgs[0])
@@ -41,6 +52,7 @@
                 case "newgame":
                     this.NewGame();
                     this.Writer.WriteLine(this.ExplainSurroundings());
+                    this.Writer.WriteLine(this.Help());
                     break;
                 case "help":
                     this.Writer.WriteLine(this.Help());
@@ -58,7 +70,7 @@
                     }
                     break;
                 case "goto":
-                    this.Writer.WriteLine(this.ListLocations());
+                    this.Writer.Write(this.ListLocations());
                     int locationId = this.GetIdFromInput();
                     this.PlayerGoToLocation(locationId);
                     this.Writer.WriteLine(this.ExplainSurroundings());
@@ -88,16 +100,36 @@
                     this.ApplyInventoryItem(itemId);
                     break;
                 case "buy":
-                    // TODO: Need check to see if item shop is near by
-                    this.Writer.WriteLine(this.ListItemShopInventoryItems());
-                    int itemToBuyId = this.GetIdFromInput();
-                    this.TryToBuyItem(itemToBuyId);
+                    if (this.HaveHereShops())
+                    {
+                        this.Writer.WriteLine(this.ListItemShopInventoryItems());
+                        int itemToBuyId = this.GetIdFromInput();
+                        bool haveBoughtItem = this.TryToBuyItem(itemToBuyId);
+                        if (!haveBoughtItem)
+                        {
+                            this.Writer.WriteLine("You do not enough money.");
+                        }
+                    }
+                    else
+                    {
+                        this.Writer.WriteLine("There are not any shops near you.");
+                    }
                     break;
                 case "sell":
-                    // TODO: Need check to see if item shop is near by
-                    this.Writer.WriteLine(this.ListPlayerInventoryItems());
-                    int itemToSellId = this.GetIdFromInput();
-                    this.TryToSellItem(itemToSellId);
+                    if (this.HaveHereShops())
+                    {
+                        this.Writer.WriteLine(this.ListPlayerInventoryItems());
+                        int itemToSellId = this.GetIdFromInput();
+                        bool haveSoldItem = this.TryToSellItem(itemToSellId);
+                        if (!haveSoldItem)
+                        {
+                            this.Writer.WriteLine("Shop owner do not have enough.");
+                        }
+                    }
+                    else
+                    {
+                        this.Writer.WriteLine("There are not any shops near you.");
+                    }
                     break;
                 case "exit":
                     this.Writer.WriteLine("Bye, bye :)");
@@ -109,14 +141,50 @@
             }
         }
 
-        private void TryToSellItem(int itemToSellId)
+        private bool HaveHereShops()
         {
-            throw new NotImplementedException();
+            bool locationHaveShops = this.context.ItemShops.Any(shop => shop.LocationId == this.CurrentActivePlayer.CurrentLocationId);
+
+            return locationHaveShops;
         }
 
-        private void TryToBuyItem(int itemToBuyId)
+        private bool TryToSellItem(int itemToSellId)
         {
-            throw new NotImplementedException();
+            var shop = this.context.ItemShops.FirstOrDefault(
+                            s => s.LocationId == this.CurrentActivePlayer.CurrentLocationId);
+
+            var wantedItem = this.CurrentActivePlayer.Inventory.Content.FirstOrDefault(item => item.Id == itemToSellId);
+
+            if (shop.MoneyBalance > wantedItem.ValueInCoin)
+            {
+                shop.Inventory.Content.Add(wantedItem);
+                this.CurrentActivePlayer.Inventory.Content.Remove(wantedItem);
+                this.SaveGame();
+
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool TryToBuyItem(int itemToBuyId)
+        {
+            var shop =
+                this.context.ItemShops.FirstOrDefault(
+                    s => s.LocationId == this.CurrentActivePlayer.CurrentLocationId);
+
+            var wantedItem = shop.Inventory.Content.FirstOrDefault(item => item.Id == itemToBuyId);
+            if (this.CurrentActivePlayer.Coins >= wantedItem.ValueInCoin)
+            {
+                this.CurrentActivePlayer.Inventory.Content.Add(wantedItem);
+                shop.Inventory.Content.Remove(wantedItem);
+
+                this.SaveGame();
+
+                return true;
+            }
+
+            return false;
         }
 
         private string ListItemShopInventoryItems()
@@ -298,7 +366,7 @@
         private string Help()
         {
             StringBuilder output = new StringBuilder();
-            output.AppendLine("newgame - Create's new game.");
+            output.AppendLine("newgame - Create a new game.");
             output.AppendLine("attack - List attackable characters nearby.");
             output.AppendLine("goto - List locations character could go.");
             output.AppendLine("open - List chests nearby.");
@@ -332,11 +400,12 @@
             this.context.SaveChanges();
         }
 
-        internal void NewGame()
+        private void NewGame()
         {
             // TODO: if no active player continue, else delete current player and reload database and seed
 
             this.CreatePlayerCharacter();
         }
+        #endregion
     }
 }

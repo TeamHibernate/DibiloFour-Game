@@ -11,22 +11,23 @@
 
         #region Constructor
         public ItemShop()
-        {
-            
+        {     
         }
 
-        public ItemShop(string name, int sellerId, int locationId, int inventoryId)
+        public ItemShop(string name, decimal balance, int sellerId, int locationId, int inventoryId)
         {
             this.Name = name;
+            this.MoneyBalance = balance;
             this.SellerId = sellerId;
             this.LocationId = locationId;
             this.InventoryId = inventoryId;
         }
 
-        public ItemShop(int id, string name, int sellerId, int locationId, int inventoryId)
+        public ItemShop(int id, string name, decimal balance, int sellerId, int locationId, int inventoryId)
         {
             this.Id = id;
             this.Name = name;
+            this.MoneyBalance = balance;
             this.SellerId = sellerId;
             this.LocationId = locationId;
             this.InventoryId = inventoryId;
@@ -39,6 +40,9 @@
 
         [Required, MaxLength(100)]
         public string Name { get; set; }
+
+        [Required]
+        public decimal MoneyBalance { get; set; }
 
         /// <summary>
         /// SellerId represents Dibil that sell in the ItemShop
