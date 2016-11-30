@@ -12,3 +12,17 @@ C:\Users\Даниел\Documents\GitHub\DibiloFour-Game\DibiloFour\DibiloFour.Con
 C:\Users\Даниел\Documents\GitHub\DibiloFour-Game\DibiloFour\DibiloFour.ConsoleApplication\obj\Debug\DibiloFour.ConsoleApplication.csprojResolveAssemblyReference.cache
 C:\Users\Даниел\Documents\GitHub\DibiloFour-Game\DibiloFour\DibiloFour.ConsoleApplication\obj\Debug\DibiloFour.ConsoleApplication.exe
 C:\Users\Даниел\Documents\GitHub\DibiloFour-Game\DibiloFour\DibiloFour.ConsoleApplication\obj\Debug\DibiloFour.ConsoleApplication.pdb
+C:\Users\asus\Desktop\DibiloFour-Game.git\trunk\DibiloFour\DibiloFour.ConsoleApplication\bin\Debug\DibiloFour.ConsoleApplication.exe.config
+C:\Users\asus\Desktop\DibiloFour-Game.git\trunk\DibiloFour\DibiloFour.ConsoleApplication\obj\Debug\DibiloFour.ConsoleApplication.exe
+C:\Users\asus\Desktop\DibiloFour-Game.git\trunk\DibiloFour\DibiloFour.ConsoleApplication\obj\Debug\DibiloFour.ConsoleApplication.pdb
+C:\Users\asus\Desktop\DibiloFour-Game.git\trunk\DibiloFour\DibiloFour.ConsoleApplication\bin\Debug\DibiloFour.ConsoleApplication.exe
+C:\Users\asus\Desktop\DibiloFour-Game.git\trunk\DibiloFour\DibiloFour.ConsoleApplication\bin\Debug\DibiloFour.ConsoleApplication.pdb
+C:\Users\asus\Desktop\DibiloFour-Game.git\trunk\DibiloFour\DibiloFour.ConsoleApplication\bin\Debug\DibiloFour.Core.dll
+C:\Users\asus\Desktop\DibiloFour-Game.git\trunk\DibiloFour\DibiloFour.ConsoleApplication\bin\Debug\DibiloFour.Models.dll
+C:\Users\asus\Desktop\DibiloFour-Game.git\trunk\DibiloFour\DibiloFour.ConsoleApplication\bin\Debug\EntityFramework.dll
+C:\Users\asus\Desktop\DibiloFour-Game.git\trunk\DibiloFour\DibiloFour.ConsoleApplication\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\asus\Desktop\DibiloFour-Game.git\trunk\DibiloFour\DibiloFour.ConsoleApplication\bin\Debug\DibiloFour.Core.pdb
+C:\Users\asus\Desktop\DibiloFour-Game.git\trunk\DibiloFour\DibiloFour.ConsoleApplication\bin\Debug\DibiloFour.Models.pdb
+C:\Users\asus\Desktop\DibiloFour-Game.git\trunk\DibiloFour\DibiloFour.ConsoleApplication\bin\Debug\EntityFramework.xml
+C:\Users\asus\Desktop\DibiloFour-Game.git\trunk\DibiloFour\DibiloFour.ConsoleApplication\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\asus\Desktop\DibiloFour-Game.git\trunk\DibiloFour\DibiloFour.ConsoleApplication\obj\Debug\DibiloFour.ConsoleApplication.csprojResolveAssemblyReference.cache

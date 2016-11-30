@@ -1,8 +1,8 @@
 ﻿namespace DibiloFour.ConsoleApplication
 {
-    using DibiloFour.Core.Engine;
-    using DibiloFour.Core.Interfaces;
-    using DibiloFour.Core.IO;
+    using Core.Core;
+    using Core.Interfaces;
+    using Core.IO;
 
     class Program
     {

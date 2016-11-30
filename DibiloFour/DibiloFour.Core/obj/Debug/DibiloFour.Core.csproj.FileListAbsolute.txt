@@ -10,3 +10,15 @@ C:\Users\Даниел\Documents\GitHub\DibiloFour-Game\DibiloFour\DibiloFour.Cor
 C:\Users\Даниел\Documents\GitHub\DibiloFour-Game\DibiloFour\DibiloFour.Core\obj\Debug\DibiloFour.Core.csprojResolveAssemblyReference.cache
 C:\Users\Даниел\Documents\GitHub\DibiloFour-Game\DibiloFour\DibiloFour.Core\obj\Debug\DibiloFour.Core.dll
 C:\Users\Даниел\Documents\GitHub\DibiloFour-Game\DibiloFour\DibiloFour.Core\obj\Debug\DibiloFour.Core.pdb
+C:\Users\asus\Desktop\DibiloFour-Game.git\trunk\DibiloFour\DibiloFour.Core\bin\Debug\DibiloFour.Core.dll.config
+C:\Users\asus\Desktop\DibiloFour-Game.git\trunk\DibiloFour\DibiloFour.Core\bin\Debug\DibiloFour.Core.dll
+C:\Users\asus\Desktop\DibiloFour-Game.git\trunk\DibiloFour\DibiloFour.Core\bin\Debug\DibiloFour.Core.pdb
+C:\Users\asus\Desktop\DibiloFour-Game.git\trunk\DibiloFour\DibiloFour.Core\bin\Debug\DibiloFour.Models.dll
+C:\Users\asus\Desktop\DibiloFour-Game.git\trunk\DibiloFour\DibiloFour.Core\bin\Debug\EntityFramework.dll
+C:\Users\asus\Desktop\DibiloFour-Game.git\trunk\DibiloFour\DibiloFour.Core\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\asus\Desktop\DibiloFour-Game.git\trunk\DibiloFour\DibiloFour.Core\bin\Debug\DibiloFour.Models.pdb
+C:\Users\asus\Desktop\DibiloFour-Game.git\trunk\DibiloFour\DibiloFour.Core\bin\Debug\EntityFramework.xml
+C:\Users\asus\Desktop\DibiloFour-Game.git\trunk\DibiloFour\DibiloFour.Core\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\asus\Desktop\DibiloFour-Game.git\trunk\DibiloFour\DibiloFour.Core\obj\Debug\DibiloFour.Core.csprojResolveAssemblyReference.cache
+C:\Users\asus\Desktop\DibiloFour-Game.git\trunk\DibiloFour\DibiloFour.Core\obj\Debug\DibiloFour.Core.dll
+C:\Users\asus\Desktop\DibiloFour-Game.git\trunk\DibiloFour\DibiloFour.Core\obj\Debug\DibiloFour.Core.pdb

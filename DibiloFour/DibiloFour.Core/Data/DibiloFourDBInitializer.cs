@@ -109,8 +109,8 @@
             context.SaveChanges();
 
             // Adding swords/armour to npc Dibils
-            context.Dibils.Where(d => d.Id == 2).FirstOrDefault().CurrentWeaponItemId = 2;
-            context.Dibils.Where(d => d.Id == 3).FirstOrDefault().CurrentWeaponItemId = 3;
+            context.Dibils.FirstOrDefault(d => d.Id == 2).CurrentWeaponItemId = 2;
+            context.Dibils.FirstOrDefault(d => d.Id == 3).CurrentWeaponItemId = 3;
 
             context.SaveChanges();
 

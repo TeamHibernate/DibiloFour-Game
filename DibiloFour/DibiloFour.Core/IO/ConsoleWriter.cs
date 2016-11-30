@@ -1,6 +1,6 @@
 ﻿namespace DibiloFour.Core.IO
 {
-    using DibiloFour.Core.Interfaces;
+    using Interfaces;
     using System;
 
     public class ConsoleWriter : IOutputWriter
