@@ -3,5 +3,7 @@
     public interface IInputReader
     {
         string ReadLine();
+
+        char ReadKey();
     }
 }

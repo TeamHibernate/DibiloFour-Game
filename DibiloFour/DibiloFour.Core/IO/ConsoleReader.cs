@@ -11,5 +11,11 @@
 
             return input;
         }
+
+        public char ReadKey()
+        {
+            var input = Console.ReadKey(true);
+            return input.KeyChar;
+        }
     }
 }

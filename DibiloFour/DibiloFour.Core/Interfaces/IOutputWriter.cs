@@ -4,5 +4,7 @@
     {
         void WriteLine(string output);
         void Write(string output);
+
+        void ClearScreen();
     }
 }

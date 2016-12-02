@@ -1,17 +1,19 @@
 ﻿namespace DibiloFour.Core.Core
 {
     using System;
+    using System.Data.Entity;
     using System.Text;
     using Models;
     using System.Linq;
+    using System.Threading;
+
     using Interfaces;
 
     public class TaskManager
     {
+        //TODO: Remove?
         #region Fields
-
         private readonly DibiloFourContext context;
-
         #endregion
 
         #region Constructors
@@ -36,11 +38,20 @@
         #endregion
 
         #region Properties
-        public IInputReader Reader { get; set; }
+        public IInputReader Reader
+        {
+            get; set;
+        }
 
-        public IOutputWriter Writer { get; set; }
+        public IOutputWriter Writer
+        {
+            get; set;
+        }
 
-        public Dibil CurrentActivePlayer { get; set; }
+        public Dibil CurrentActivePlayer
+        {
+            get; set;
+        }
 
         #endregion
 
@@ -133,18 +144,20 @@
                     break;
                 case "exit":
                     this.Writer.WriteLine("Bye, bye :)");
+                    Thread.Sleep(1000);
                     Environment.Exit(0);
                     break;
                 default:
                     this.Writer.WriteLine("Invalid command argument, type \"help\" to see valid command examples.");
                     break;
             }
+
+            this.Writer.ClearScreen();
         }
 
         private bool HaveHereShops()
         {
             bool locationHaveShops = this.context.ItemShops.Any(shop => shop.LocationId == this.CurrentActivePlayer.CurrentLocationId);
-
             return locationHaveShops;
         }
 
@@ -195,8 +208,7 @@
                 .Select(inventory => inventory.InventoryId)
                 .FirstOrDefault();
             var items = this.context.Inventories.FirstOrDefault(i => i.Id == currentItemShopInventoryId);
-
-            StringBuilder output = new StringBuilder();
+            var output = new StringBuilder();
 
             foreach (var item in items.Content)
             {
@@ -402,10 +414,29 @@
 
         private void NewGame()
         {
-            // TODO: if no active player continue, else delete current player and reload database and seed
-
+            if (this.CurrentActivePlayer != null)
+            {
+                try
+                {
+                    this.DeletePlayer(this.CurrentActivePlayer.Id);
+                    //TODO: tell client its deleted?
+                }
+                catch (Exception exception)
+                {
+                    this.Writer.WriteLine("Error while trying to delete player. Error message: " + exception.Message);
+                    //TODO: show error?
+                }
+            }
+            
             this.CreatePlayerCharacter();
         }
         #endregion
+
+        void DeletePlayer(int playerId)
+        {
+            var player = this.context.Dibils.Find(playerId);
+            this.context.Dibils.Remove(player);
+            this.context.SaveChanges();
+        }
     }
 }

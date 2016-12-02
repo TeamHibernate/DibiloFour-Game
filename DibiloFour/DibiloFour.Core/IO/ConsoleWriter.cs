@@ -14,5 +14,10 @@
         {
             Console.Write(output);
         }
+
+        public void ClearScreen()
+        {
+            Console.Clear();
+        }
     }
 }
