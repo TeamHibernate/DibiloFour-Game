@@ -54,10 +54,7 @@
 
             foreach (var item in items.Content)
             {
-                output.AppendLine($"Id: {item.Id}, Name: {item.Name}");
-                output.AppendLine($"Description: {item.Description}");
-                output.AppendLine($"Effect: {item.Effect}, Price: {item.ValueInCoin}");
-                output.AppendLine();
+                output.AppendLine(item.ToString());
             }
 
             return output.ToString();
