@@ -2,6 +2,7 @@
 {
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Text;
 
     public class Item
     {
@@ -62,5 +63,16 @@
 
         public Inventory Inventory { get; set; }
         #endregion
+
+        public override string ToString()
+        {
+            var output = new StringBuilder();
+            
+            output.AppendLine($"Id: {this.Id}, Name: {this.Name}");
+            output.AppendLine($"Description: {this.Description}");
+            output.AppendLine($"Effect: {this.Effect}, Price: {this.ValueInCoin}");
+
+            return output.ToString();
+        }
     }
 }
