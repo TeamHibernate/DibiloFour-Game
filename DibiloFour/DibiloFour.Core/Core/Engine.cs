@@ -77,6 +77,7 @@
             this.commandsManager.AddCommand(new OpenCommand(this.context, this.CurrentlyActivePlayer, this.inputReader, this.outputWriter));
             this.commandsManager.AddCommand(new SellCommand(this.context, this.CurrentlyActivePlayer, this.inputReader, this.outputWriter));
             this.commandsManager.AddCommand(new UseCommand(this.context, this.CurrentlyActivePlayer, this.inputReader, this.outputWriter));
+            this.commandsManager.AddCommand(new HelpCommand(this.commandsManager, this.outputWriter));
         }
 
         public void Run()
@@ -128,7 +129,7 @@
         {
             StringBuilder output = new StringBuilder();
             output.AppendLine("newgame - Create's new game.");
-            output.AppendLine("loadgame - Load last saved game.");
+            output.AppendLine("loadgame - Load last saved game."); //TODO: Implement loadgame
             output.AppendLine("exit - Save game and exit application.");
 
             this.OutputWriter.Write(output.ToString());
