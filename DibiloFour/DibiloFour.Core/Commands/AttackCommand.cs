@@ -82,7 +82,50 @@
 
         private void PlayerAttack(int characterId)
         {
-            throw new NotImplementedException();
+            //TODO: Test
+
+            var enemy = this.context.Dibils.FirstOrDefault(d => d.Id == characterId);
+
+            if (enemy == null)
+            {
+                throw new ArgumentException("Cant found enemy with id " + characterId);
+            }
+
+            var playerAttack = this.activePlayer.CurrentWeapon.Effect;
+
+            enemy.Health -= Math.Max(playerAttack - enemy.CurrentArmour.Effect, 0);
+
+            this.writer.WriteLine("You attacked " + enemy.Name);
+
+            if (enemy.Health > 0)
+            {
+                this.writer.WriteLine(enemy.Health + " health is " + enemy.Health);
+            }
+            else
+            {
+                this.writer.WriteLine(enemy.Name + " is dead");
+
+                var enemyCoins = enemy.Coins;
+                var enemyItems = enemy.Inventory.Content.ToList();
+
+                this.activePlayer.Coins += enemyCoins;
+                enemy.Coins = 0;
+                
+                enemyItems.ForEach(this.activePlayer.Inventory.Content.Add);
+                enemy.Inventory.Content.Clear();
+
+                this.writer.WriteLine("You picked up:");
+                this.writer.WriteLine(enemyCoins + " Coints");
+
+                if (enemyItems.Count > 0)
+                {
+                    this.writer.WriteLine("Items:");
+                    enemyItems.Select(i => i.Name).ToList()
+                        .ForEach(this.writer.WriteLine);
+                }                
+            }
+
+            this.context.SaveChanges();
         }
 
     }
