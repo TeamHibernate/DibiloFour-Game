@@ -5,7 +5,7 @@
     using System.Text;
 
     using Commands;
-
+    using Data;
     using Interfaces;
     using Models;
 
@@ -56,18 +56,12 @@
             }
         }
         
-        public Dibil CurrentlyActivePlayer
-        {
-            get
-            {
-                return this.context.Dibils.FirstOrDefault(d => d.IsActivePlayer);
-            }
-        }
+        public Dibil CurrentlyActivePlayer { get; set; }
 
         #endregion
 
         #region Methods
-        void InitializeCommands()
+        private void InitializeCommands()
         {
             this.commandsManager.AddCommand(new NewGameCommand(this.context, this.CurrentlyActivePlayer, this.outputWriter, this.inputReader));
             this.commandsManager.AddCommand(new AttackCommand(this.context, this.CurrentlyActivePlayer, this.outputWriter, this.inputReader));
@@ -83,17 +77,6 @@
         public void Run()
         {
             this.WelcomeScreen();
-
-            //TODO Do we actually need this?
-            /* 
-            var player = this.CurrentlyActivePlayer;
-
-            if (player == null)
-            {
-                this.commandsManager.Execute("newgame");
-                //this.TaskManager.ProcessCommand(new []{"newgame"});
-            }
-            */
             
             this.StartGameInstructions();
             

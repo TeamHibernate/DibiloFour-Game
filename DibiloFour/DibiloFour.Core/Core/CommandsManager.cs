@@ -1,9 +1,8 @@
-﻿namespace DibiloFour.Core.Commands
+﻿namespace DibiloFour.Core.Core
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
-
     using Interfaces;
 
     public class CommandsManager
@@ -21,10 +20,11 @@
             var commandData = command.Split(new char[] { CommandArgsDelimiter }, StringSplitOptions.RemoveEmptyEntries);
             var commandName = commandData[0];
 
-            if (commandName.Length < MinCommandNameLength)
-            {
-                throw new ArgumentException("Command must be at least " + MinCommandNameLength + "symbols long");
-            }
+            // оverprogrammed 
+            //if (commandName.Length < MinCommandNameLength)
+            //{
+            //    throw new ArgumentException("Command must be at least " + MinCommandNameLength + "symbols long");
+            //}
             
             if (!this.AvailableCommands.Contains(commandName))
             {
@@ -54,24 +54,25 @@
             this.commands.Add(commandName, command);
         }
 
+        // Do we actually need this?
         /// <summary>
         /// Премахна команда. 
         /// След като се премахне няма да може да се извиква (очевадно).
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        public void RemoveCommand<T>() where T : ICommand
-        {
-            var commandType = typeof(T);
+        //private void RemoveCommand<T>() where T : ICommand
+        //{
+        //    var commandType = typeof(T);
 
-            this.commands.ToList()
-                .Where(c => c.Value.GetType() == commandType)
-                .ToList()
-                .ForEach(c => this.commands.Remove(c.Key));
-        }
+        //    this.commands.ToList()
+        //        .Where(c => c.Value.GetType() == commandType)
+        //        .ToList()
+        //        .ForEach(c => this.commands.Remove(c.Key));
+        //}
 
-        public string GetCommandExplanation(string commandName) 
+        internal string GetCommandExplanation(string commandName) 
         {
-            if (!commands.ContainsKey(commandName))
+            if (!this.commands.ContainsKey(commandName))
             {
                 throw new ArgumentException("Command not added");
             }

@@ -53,7 +53,6 @@
   <ItemGroup>
     <Compile Include="Commands\AttackCommand.cs" />
     <Compile Include="Commands\BuyCommand.cs" />
-    <Compile Include="Commands\CommandsManager.cs" />
     <Compile Include="Commands\ExitCommand.cs" />
     <Compile Include="Commands\GotoCommand.cs" />
     <Compile Include="Commands\HelpCommand.cs" />
@@ -61,7 +60,7 @@
     <Compile Include="Commands\OpenCommand.cs" />
     <Compile Include="Commands\SellCommand.cs" />
     <Compile Include="Commands\UseCommand.cs" />
-    <Compile Include="Core\TaskManager.cs" />
+    <Compile Include="Core\CommandsManager.cs" />
     <Compile Include="Data\DibiloFourContext.cs" />
     <Compile Include="Data\DibiloFourDBInitializer.cs" />
     <Compile Include="Core\Engine.cs" />

@@ -1,8 +1,8 @@
-﻿namespace DibiloFour.Core
+﻿namespace DibiloFour.Core.Data
 {
-    using Models;
     using System.Data.Entity;
     using System.Linq;
+    using Models;
 
     public class DibiloFourDBInitializer : CreateDatabaseIfNotExists<DibiloFourContext>
     {
@@ -60,15 +60,15 @@
             context.Inventories.Add(treasureChestTwo);
 
             // Initialize Dibils
-            Dibil OwenShopKeeper = new Dibil(1, "Owen", 100, 0, 5, 1000, 1, false)
+            Dibil OwenShopKeeper = new Dibil(1, "Owen", 100, 0, 5, 1000, 1)
             {
                 CurrentLocationId = 1
             };
-            Dibil NaskoTheBandit = new Dibil(2, "Nasko", 100, 5, 5, 500, 3, false)
+            Dibil NaskoTheBandit = new Dibil(2, "Nasko", 100, 5, 5, 500, 3)
             {
                 CurrentLocationId = 3
             };
-            Dibil KermitTheFarmer = new Dibil(3, "Kermit", 100, 1, 1, 5, 4, false)
+            Dibil KermitTheFarmer = new Dibil(3, "Kermit", 100, 1, 1, 5, 4)
             {
                 CurrentLocationId = 2
             };

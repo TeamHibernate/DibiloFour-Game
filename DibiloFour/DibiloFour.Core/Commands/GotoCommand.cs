@@ -3,7 +3,7 @@
 
     using System.Linq;
     using System.Text;
-
+    using Data;
     using DibiloFour.Core.Interfaces;
     using DibiloFour.Models;
 
@@ -30,7 +30,7 @@
 
         public void Execute(string[] args)
         {
-            this.writer.WriteLine(this.ListLocations());
+            this.writer.Write(this.ListLocations());
             int locationId = this.GetIdFromInput();
             this.PlayerGoToLocation(locationId);
             this.writer.WriteLine(this.GetPlayerCurrentLocation());

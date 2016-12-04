@@ -1,5 +1,6 @@
 ﻿namespace DibiloFour.Core.Commands
 {
+    using Core;
     using Interfaces;
 
     public class HelpCommand : ICommand
@@ -19,6 +20,7 @@
 
         public void Execute(string[] args)
         {
+            this.writer.WriteLine("Available commands: ");
             foreach (var availableCommand in this.availableCommands)
             {
                 this.writer.WriteLine(availableCommand);

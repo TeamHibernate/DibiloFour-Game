@@ -1,13 +1,13 @@
 ﻿namespace DibiloFour.Core.Commands
 {
     using System;
-
+    using Data;
     using Interfaces;
     using Models;
      
     public class NewGameCommand : ICommand
     {
-        const string SuccessfullyCreatedCharacter = "Successfully created character.";
+        private const string SuccessfullyCreatedCharacter = "Successfully created character.";
 
         private readonly DibiloFourContext context;
 
@@ -31,18 +31,6 @@
 
         public void Execute(string[] args)
         {
-            if (this.currentActivePlayer != null)
-            {
-                try
-                {
-                    this.DeletePlayer(this.currentActivePlayer.Id);
-                }
-                catch (Exception exception)
-                {
-                    throw new Exception("Error while trying to delete player.Error message: " + exception.Message, exception);
-                }
-            }
-
             this.CreatePlayerCharacter();
             this.writer.WriteLine(SuccessfullyCreatedCharacter);
         }
@@ -52,7 +40,7 @@
             this.writer.WriteLine("New character name:");
             string name = this.reader.ReadLine();
 
-            Dibil newPlayer = new Dibil(name, 100, 0, 0, 0, true)
+            Dibil newPlayer = new Dibil(name, 100, 0, 0, 0)
             {
                 CurrentLocationId = 1
             };
@@ -63,12 +51,12 @@
             this.context.SaveChanges();
         }
 
-
-        void DeletePlayer(int playerId)
-        {
-            var player = this.context.Dibils.Find(playerId);
-            this.context.Dibils.Remove(player);
-            this.context.SaveChanges();
-        }
+        // TODO: make this a command
+        //void DeletePlayer(int playerId)
+        //{
+        //    var player = this.context.Dibils.Find(playerId);
+        //    this.context.Dibils.Remove(player);
+        //    this.context.SaveChanges();
+        //}
     }
 }

@@ -15,7 +15,7 @@
 
         }
 
-        public Dibil(string name, int health, int lockpickingSkill, int speechSkill, int coins, bool isActivePlayer)
+        public Dibil(string name, int health, int lockpickingSkill, int speechSkill, int coins)
         {
             this.Name = name;
             this.Health = health;
@@ -23,10 +23,9 @@
             this.SpeechSkill = speechSkill;
             this.Coins = coins;
             this.Inventory = new Inventory();
-            this.IsActivePlayer = isActivePlayer;
         }
 
-        public Dibil(int id, string name, int health, int lockpickingSkill, int speechSkill, int coins, bool isActivePlayer)
+        public Dibil(int id, string name, int health, int lockpickingSkill, int speechSkill, int coins)
         {
             this.Id = id;
             this.Name = name;
@@ -35,10 +34,9 @@
             this.SpeechSkill = speechSkill;
             this.Coins = coins;
             this.Inventory = new Inventory();
-            this.IsActivePlayer = isActivePlayer;
         }
 
-        public Dibil(int id, string name, int health, int lockpickingSkill, int speechSkill, int coins, int inventoryId, bool isActivePlayer)
+        public Dibil(int id, string name, int health, int lockpickingSkill, int speechSkill, int coins, int inventoryId)
         {
             this.Id = id;
             this.Name = name;
@@ -47,7 +45,6 @@
             this.SpeechSkill = speechSkill;
             this.Coins = coins;
             this.InventoryId = inventoryId;
-            this.IsActivePlayer = isActivePlayer;
         }
         #endregion
 
@@ -89,8 +86,6 @@
         public int InventoryId { get; set; }
 
         public Inventory Inventory { get; set; }
-        
-        public bool IsActivePlayer { get; set; }
         #endregion
     }
 }
