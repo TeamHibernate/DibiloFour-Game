@@ -5,19 +5,19 @@
     using System.Text;
     using Data;
     using DibiloFour.Core.Interfaces;
-    using DibiloFour.Models;
+    using Models.Dibils;
 
     public class SellCommand : ICommand
     {
         private readonly DibiloFourContext context;
 
-        private readonly Dibil activePlayer;
+        private readonly Player activePlayer;
 
         private readonly IInputReader reader;
 
         private readonly IOutputWriter writer;
 
-        public SellCommand(DibiloFourContext context, Dibil activePlayer, IInputReader reader, IOutputWriter writer)
+        public SellCommand(DibiloFourContext context, Player activePlayer, IInputReader reader, IOutputWriter writer)
         {
             this.context = context;
             this.activePlayer = activePlayer;
@@ -63,7 +63,7 @@
             {
                 output.AppendLine($"Id: {item.Id}, Name: {item.Name}");
                 output.AppendLine($"Description: {item.Description}");
-                output.AppendLine($"Effect: {item.Effect}, Price: {item.ValueInCoin}");
+                output.AppendLine($"Price: {item.Value}");
             }
 
             return output.ToString();
@@ -86,7 +86,7 @@
 
             var wantedItem = this.activePlayer.Inventory.Content.FirstOrDefault(item => item.Id == itemToSellId);
 
-            if (shop.MoneyBalance > wantedItem.ValueInCoin)
+            if (shop.MoneyBalance > wantedItem.Value)
             {
                 shop.Inventory.Content.Add(wantedItem);
                 this.activePlayer.Inventory.Content.Remove(wantedItem);

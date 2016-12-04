@@ -3,6 +3,9 @@
     using System.Data.Entity;
     using System.Linq;
     using Models;
+    using Models.Dibils;
+    using Models.Enums;
+    using Models.Items;
 
     public class DibiloFourDBInitializer : CreateDatabaseIfNotExists<DibiloFourContext>
     {
@@ -60,18 +63,9 @@
             context.Inventories.Add(treasureChestTwo);
 
             // Initialize Dibils
-            Dibil OwenShopKeeper = new Dibil(1, "Owen", 100, 0, 5, 1000, 1)
-            {
-                CurrentLocationId = 1
-            };
-            Dibil NaskoTheBandit = new Dibil(2, "Nasko", 100, 5, 5, 500, 3)
-            {
-                CurrentLocationId = 3
-            };
-            Dibil KermitTheFarmer = new Dibil(3, "Kermit", 100, 1, 1, 5, 4)
-            {
-                CurrentLocationId = 2
-            };
+            Dibil OwenShopKeeper = new Villain(1, "Owen", 100, 1);
+            Dibil NaskoTheBandit = new Villain(2, "Nasko", 100, 3);
+            Dibil KermitTheFarmer = new Villain(3, "Kermit", 100, 4);
 
             context.Dibils.Add(OwenShopKeeper);
             context.Dibils.Add(NaskoTheBandit);
@@ -90,13 +84,18 @@
             context.Chests.Add(chestTwoInBanditCave);
 
             // Initialize Items
-            Item ironSwordInShop = new Item(1, "Iron Sword", "Sword made of iron.", 1, 10, 10, 2);
-            Item ironArmourInShop = new Item(5, "Iron Armour", "Armour made of iron.", 2, 10, 10, 2);
-            Item ironSwordInBandit = new Item(2, "Iron Sword", "Sword made of iron. Little used.", 1, 9, 10, 3);
-            Item woodenSwordInKermit = new Item(3, "Wooden Sword", "Sword made of wood", 1, 2, 5, 4);
-            Item bookOfMajorLockpickingInChestOne = new Item(4, "Book Of Lockpicking", "Book of major lockpicking", 4, 5, 10, 5);
-            Item potionOfMajorHealthInChestOne = new Item(5, "Health Potion", "Potion of major health", 3, 100, 15, 5);
-            Item steelSwordInChestTwo = new Item(4, "Steel Sword", "Sword made of steel", 1, 20, 30, 6);
+            Item ironSwordInShop = new Weapon(1, "Iron Sword", "Sword made of iron.", Material.Iron, 10, 10, 2);
+            Item ironArmourInShop = new Apprael(5, "Iron Armour", "Armour made of iron.", Material.Iron, 10, 10, 2);
+            Item ironSwordInBandit = new Weapon(2, "Iron Sword", "Sword made of iron. Little used.", Material.Iron, 9, 10, 3);
+            Item woodenSwordInKermit = new Weapon(3, "Wooden Sword", "Sword made of wood", Material.Iron, 2, 5, 4);
+
+            Item bookOfMajorLockpickingInChestOne = new Book(4, "Book Of Lockpicking", "Book of major lockpicking", 4, 5)
+            {
+                BonusLockpickingSkills = 10,
+                BonusSpeechSkills = 0
+            };
+            Item potionOfMajorHealthInChestOne = new Potion(5, "Health Potion", "Potion of major health", 3, 100, 10);
+            Item steelSwordInChestTwo = new Weapon(4, "Steel Sword", "Sword made of steel", Material.Steel, 20, 30, 6);
 
             context.Items.Add(ironSwordInShop);
             context.Items.Add(ironArmourInShop);

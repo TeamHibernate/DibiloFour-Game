@@ -6,18 +6,19 @@
     using Data;
     using DibiloFour.Core.Interfaces;
     using DibiloFour.Models;
+    using Models.Dibils;
 
     public class GotoCommand : ICommand
     {
         private readonly DibiloFourContext context;
 
-        private readonly Dibil activePlayer;
+        private readonly Player activePlayer;
 
         private readonly IInputReader reader;
 
         private readonly IOutputWriter writer;
 
-        public GotoCommand(DibiloFourContext context, Dibil activePlayer, IInputReader reader, IOutputWriter writer)
+        public GotoCommand(DibiloFourContext context, Player activePlayer, IInputReader reader, IOutputWriter writer)
         {
             this.context = context;
             this.activePlayer = activePlayer;

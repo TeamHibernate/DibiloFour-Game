@@ -8,21 +8,20 @@
     using Data;
     using Interfaces;
     using Models;
+    using Models.Dibils;
 
     public class Engine : IEngine
     {
         #region Fields
         private IInputReader inputReader;
         private IOutputWriter outputWriter;
-        private DibiloFourContext context;
+        private readonly DibiloFourContext context;
 
         private readonly CommandsManager commandsManager = new CommandsManager();
         #endregion
 
         #region Constructor
-        public Engine(
-            IInputReader inputReader,
-            IOutputWriter outputWriter)
+        public Engine(IInputReader inputReader, IOutputWriter outputWriter)
         {
             this.InputReader = inputReader;
             this.OutputWriter = outputWriter;
@@ -56,7 +55,7 @@
             }
         }
         
-        public Dibil CurrentlyActivePlayer { get; set; }
+        public Player CurrentlyActivePlayer { get; set; }
 
         #endregion
 

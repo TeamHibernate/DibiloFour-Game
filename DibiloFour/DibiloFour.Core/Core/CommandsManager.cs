@@ -19,12 +19,6 @@
         {
             var commandData = command.Split(new char[] { CommandArgsDelimiter }, StringSplitOptions.RemoveEmptyEntries);
             var commandName = commandData[0];
-
-            // оverprogrammed 
-            //if (commandName.Length < MinCommandNameLength)
-            //{
-            //    throw new ArgumentException("Command must be at least " + MinCommandNameLength + "symbols long");
-            //}
             
             if (!this.AvailableCommands.Contains(commandName))
             {

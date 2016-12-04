@@ -3,28 +3,39 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DibiloFour.Models
 {
+    using Items;
+
     public class Inventory
     {
-        #region
+        #region Fields
+
+        private const int DefaultMaxCarryWeight = 100;
         private ICollection<Item> content;
         #endregion
 
         #region Constructor
         public Inventory()
         {
+            this.MaxCarryWeight = DefaultMaxCarryWeight;
             this.content = new HashSet<Item>();
         }
 
         public Inventory(int id)
+            : this()
         {
             this.Id = id;
-            this.content = new HashSet<Item>();
         }
         #endregion
 
         #region Properties
         [Key]
         public int Id { get; set; }
+
+        [Required]
+        public int CarryWeight { get; set; }
+
+        [Required]
+        public int MaxCarryWeight { get; set; }
 
         public virtual ICollection<Item> Content
         {

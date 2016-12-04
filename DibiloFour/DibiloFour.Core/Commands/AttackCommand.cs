@@ -6,19 +6,19 @@
     using System.Text;
     using Data;
     using Interfaces;
-    using Models;
+    using Models.Dibils;
 
     public class AttackCommand : ICommand
     {
         private readonly DibiloFourContext context;
 
-        private readonly Dibil activePlayer;
+        private readonly Player activePlayer;
 
         private readonly IOutputWriter writer;
 
         private readonly IInputReader reader;
 
-        public AttackCommand(DibiloFourContext context, Dibil activePlayer, IOutputWriter writer, IInputReader reader)
+        public AttackCommand(DibiloFourContext context, Player activePlayer, IOutputWriter writer, IInputReader reader)
         {
             this.context = context;
             this.activePlayer = activePlayer;
@@ -91,9 +91,11 @@
                 throw new ArgumentException("Cant found enemy with id " + characterId);
             }
 
-            var playerAttack = this.activePlayer.CurrentWeapon.Effect;
+            //TODO: opravi go be skapanqk :))) 
 
-            enemy.Health -= Math.Max(playerAttack - enemy.CurrentArmour.Effect, 0);
+            //var playerAttack = this.activePlayer.CurrentWeapon.Effect;
+
+            //enemy.Health -= Math.Max(playerAttack - enemy.CurrentArmour.Effect, 0);
 
             this.writer.WriteLine("You attacked " + enemy.Name);
 

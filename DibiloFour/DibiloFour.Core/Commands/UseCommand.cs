@@ -1,25 +1,24 @@
 ﻿namespace DibiloFour.Core.Commands
 {
-
-    using System;
     using System.Linq;
     using System.Text;
     using Data;
-    using DibiloFour.Models;
 
     using Interfaces;
+    using Models.Dibils;
+    using Models.Items;
 
     public class UseCommand : ICommand
     {
         private readonly DibiloFourContext context;
 
-        private readonly Dibil activePlayer;
+        private readonly Player activePlayer;
 
         private readonly IInputReader reader;
 
         private readonly IOutputWriter writer;
 
-        public UseCommand(DibiloFourContext context, Dibil activePlayer, IInputReader reader, IOutputWriter writer)
+        public UseCommand(DibiloFourContext context, Player activePlayer, IInputReader reader, IOutputWriter writer)
         {
             this.context = context;
             this.activePlayer = activePlayer;
@@ -62,7 +61,9 @@
         
         private void ApplyInventoryItem(int itemId)
         {
-            throw new NotImplementedException();
+            Item wantedItem = this.activePlayer.Inventory.Content.FirstOrDefault(item => item.Id == itemId);
+
+            wantedItem.Use(this.activePlayer);
         }
     }
 }

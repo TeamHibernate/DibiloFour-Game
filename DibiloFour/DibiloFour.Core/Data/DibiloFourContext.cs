@@ -2,6 +2,8 @@ namespace DibiloFour.Core.Data
 {
     using System.Data.Entity;
     using Models;
+    using Models.Dibils;
+    using Models.Items;
 
     public class DibiloFourContext : DbContext
     {

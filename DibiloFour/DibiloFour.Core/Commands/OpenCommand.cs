@@ -5,18 +5,19 @@
     using Data;
     using Interfaces;
     using Models;
+    using Models.Dibils;
 
     public class OpenCommand : ICommand
     {
         private readonly DibiloFourContext context;
 
-        private readonly Dibil activePlayer;
+        private readonly Player activePlayer;
 
         private readonly IInputReader reader;
 
         private readonly IOutputWriter writer;
 
-        public OpenCommand(DibiloFourContext context, Dibil activePlayer, IInputReader reader, IOutputWriter writer)
+        public OpenCommand(DibiloFourContext context, Player activePlayer, IInputReader reader, IOutputWriter writer)
         {
             this.context = context;
             this.activePlayer = activePlayer;

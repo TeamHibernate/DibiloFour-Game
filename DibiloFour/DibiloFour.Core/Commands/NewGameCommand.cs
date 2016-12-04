@@ -4,20 +4,21 @@
     using Data;
     using Interfaces;
     using Models;
-     
+    using Models.Dibils;
+
     public class NewGameCommand : ICommand
     {
         private const string SuccessfullyCreatedCharacter = "Successfully created character.";
 
         private readonly DibiloFourContext context;
 
-        private Dibil currentActivePlayer;
+        private Player currentActivePlayer;
 
         private readonly IOutputWriter writer;
 
         private readonly IInputReader reader;
 
-        public NewGameCommand(DibiloFourContext context, Dibil currentActivePlayer, IOutputWriter writer, IInputReader reader)
+        public NewGameCommand(DibiloFourContext context, Player currentActivePlayer, IOutputWriter writer, IInputReader reader)
         {
             this.context = context;
             this.currentActivePlayer = currentActivePlayer;
@@ -40,14 +41,9 @@
             this.writer.WriteLine("New character name:");
             string name = this.reader.ReadLine();
 
-            Dibil newPlayer = new Dibil(name, 100, 0, 0, 0)
-            {
-                CurrentLocationId = 1
-            };
+            this.currentActivePlayer = new Player(name);
 
-            this.currentActivePlayer = newPlayer;
-
-            this.context.Dibils.Add(newPlayer);
+            this.context.Dibils.Add(this.currentActivePlayer);
             this.context.SaveChanges();
         }
 

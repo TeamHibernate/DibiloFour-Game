@@ -5,19 +5,19 @@
     using System.Text;
     using Data;
     using Interfaces;
-    using Models;
+    using Models.Dibils;
 
     public class BuyCommand : ICommand
     {
         private readonly DibiloFourContext context;
 
-        private readonly Dibil activePlayer;
+        private readonly Player activePlayer;
 
         private readonly IInputReader reader;
 
         private readonly IOutputWriter writer;
 
-        public BuyCommand(DibiloFourContext context, Dibil activePlayer, IInputReader reader, IOutputWriter writer)
+        public BuyCommand(DibiloFourContext context, Player activePlayer, IInputReader reader, IOutputWriter writer)
         {
             this.context = context;
             this.activePlayer = activePlayer;
@@ -78,7 +78,7 @@
                     s => s.LocationId == this.activePlayer.CurrentLocationId);
 
             var wantedItem = shop.Inventory.Content.FirstOrDefault(item => item.Id == itemToBuyId);
-            if (this.activePlayer.Coins >= wantedItem.ValueInCoin)
+            if (this.activePlayer.Coins >= wantedItem.Value)
             {
                 this.activePlayer.Inventory.Content.Add(wantedItem);
                 shop.Inventory.Content.Remove(wantedItem);
