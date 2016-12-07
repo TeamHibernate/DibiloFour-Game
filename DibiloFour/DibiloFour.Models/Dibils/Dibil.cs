@@ -6,6 +6,7 @@
 
     public abstract class Dibil
     {
+
         #region Fields
         #endregion
 
@@ -13,12 +14,13 @@
 
         protected Dibil()
         {
-            this.Inventory = new Inventory();
+
         }
 
-        protected Dibil(string name) : this()
+        protected Dibil(string name, Inventory invetory)
         {
             this.Name = name;
+            this.Inventory = invetory;
         }
         #endregion
 

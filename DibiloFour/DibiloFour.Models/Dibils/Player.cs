@@ -8,16 +8,25 @@
         private const int DefaultMoney = 1000;
         private const int DefaultDamage = 8;
         private const int DefaultArmour = 0;
-        private const int DefaultLocationId = 1;
 
-        public Player(string name) :
-            base(name)
+        private const int DefaultLockpickingSkill = 0;
+
+        private const int DefaultSpeechSkill = 10;
+
+        public Player()
+        {
+            
+        }
+
+        public Player(string name, Inventory inventory) :
+            base(name, inventory)
         {
             this.Health = DefaultHealth;
             this.Damage = DefaultDamage;
             this.Armour = DefaultArmour;
             this.Coins = DefaultMoney;
-            this.CurrentLocationId = DefaultLocationId;
+            this.LockpickingSkill = DefaultLockpickingSkill;
+            this.SpeechSkill = DefaultSpeechSkill;
         }
 
         [Required]

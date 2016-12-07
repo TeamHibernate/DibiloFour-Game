@@ -4,6 +4,11 @@
 
     public abstract class Stuff : Item
     {
+        protected Stuff()
+        {
+                
+        }
+
         protected Stuff(int id, string name, string description, int weight, decimal value)
             : base(id, name, description, value, weight)
         {      

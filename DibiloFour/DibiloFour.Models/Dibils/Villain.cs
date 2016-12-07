@@ -8,8 +8,8 @@
         private const int DefaultMoney = 50;
 
         // when creating an ordinary Villain
-        public Villain(int id, string name, int locationId)
-            : base(name)
+        public Villain(int id, string name, int locationId, Inventory inventory)
+            : base(name, inventory)
         {
             this.Id = id;
             this.CurrentLocationId = locationId;
@@ -20,8 +20,8 @@
         }
 
         // when creating a special Villain
-        public Villain(int id, string name, int health, int locationId) :
-            base(name)
+        public Villain(int id, string name, int health, int locationId, Inventory inventory) :
+            base(name, inventory)
         {
             this.Id = id;
             this.Health = health;

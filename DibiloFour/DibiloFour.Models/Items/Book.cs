@@ -1,7 +1,11 @@
 ﻿namespace DibiloFour.Models.Items
 {
+
+    using System.ComponentModel.DataAnnotations.Schema;
+
     using Dibils;
 
+    [Table("Books")]
     public class Book : Stuff
     {
         //TODO: add more specifics

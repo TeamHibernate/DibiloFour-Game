@@ -5,7 +5,12 @@
 
     public abstract class Arming : Item
     {
-        public Arming(int id, string name, string description, Material material, int weight, decimal value)
+        protected Arming()
+        {
+            
+        }
+
+        protected Arming(int id, string name, string description, Material material, int weight, decimal value)
             : base(id, name, description, value, weight)
         {
             this.MaterialType = material;

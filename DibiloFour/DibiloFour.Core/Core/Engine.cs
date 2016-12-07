@@ -63,6 +63,7 @@
         private void InitializeCommands()
         {
             this.commandsManager.AddCommand(new NewGameCommand(this.context, this, this.outputWriter, this.inputReader));
+            this.commandsManager.AddCommand(new LoadGameCommand(this, this.context, this.outputWriter));
             this.commandsManager.AddCommand(new AttackCommand(this.context, this.CurrentlyActivePlayer, this.outputWriter, this.inputReader));
             this.commandsManager.AddCommand(new BuyCommand(this.context, this.CurrentlyActivePlayer, this.inputReader, this.outputWriter));
             this.commandsManager.AddCommand(new ExitCommand(this.outputWriter));
@@ -75,15 +76,31 @@
 
         public void Run()
         {
-            this.WelcomeScreen();
+            /* 
+            if (this.context.Database.Exists())
+            {
+                this.context.Database.Delete();
+            }
+            /*/
             
+            if (!this.context.Database.Exists())
+            {
+                this.outputWriter.WriteLine("Creating database...");
+                this.context.Database.Create();
+            }
+            
+            this.WelcomeScreen();
             this.StartGameInstructions();
             
             while (true)
             {
+                this.outputWriter.WriteLine(new string('-', 50));
+
                 var input = this.inputReader.ReadLine()
                     .Trim()
                     .ToLower();
+
+                this.outputWriter.ClearScreen();
 
                 try
                 {
@@ -92,7 +109,7 @@
                 catch (Exception exception)
                 {
                     this.outputWriter.WriteLine(exception.Message);
-                    this.commandsManager.Execute("Help");
+                    this.commandsManager.Execute("help");
                 }
             }
         }
@@ -100,9 +117,19 @@
         private void StartGameInstructions()
         {
             StringBuilder output = new StringBuilder();
-            output.AppendLine("newgame - Create's new game.");
-            output.AppendLine("loadgame - Load last saved game."); //TODO: Implement loadgame
-            output.AppendLine("exit - Save game and exit application.");
+
+            var newGameExplanation = this.commandsManager.GetCommandExplanation("newgame");
+            var loadGameExplanation = this.commandsManager.GetCommandExplanation("loadgame");
+            var exitGameExplanation = this.commandsManager.GetCommandExplanation("exit");
+
+            output.Append("newgame - ");
+            output.AppendLine(newGameExplanation);
+
+            output.Append("loadgame - ");
+            output.AppendLine(loadGameExplanation);
+
+            output.Append("exit - ");
+            output.AppendLine(exitGameExplanation);
 
             this.OutputWriter.Write(output.ToString());
         }
