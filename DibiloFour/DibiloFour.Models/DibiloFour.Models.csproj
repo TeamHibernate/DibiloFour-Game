@@ -49,21 +49,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Items\Apprael.cs" />
+    <Compile Include="Items\Arming.cs" />
+    <Compile Include="Items\Book.cs" />
     <Compile Include="Chest.cs" />
-    <Compile Include="Dibil.cs" />
+    <Compile Include="Dibils\Dibil.cs" />
     <Compile Include="Inventory.cs" />
-    <Compile Include="Item.cs" />
+    <Compile Include="Items\Item.cs" />
     <Compile Include="ItemShop.cs" />
     <Compile Include="ItemType.cs" />
     <Compile Include="Location.cs" />
     <Compile Include="LocationType.cs" />
     <Compile Include="LockType.cs" />
+    <Compile Include="Enums\Material.cs" />
+    <Compile Include="Dibils\Player.cs" />
+    <Compile Include="Items\Potion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Items\Stuff.cs" />
+    <Compile Include="Dibils\Villain.cs" />
+    <Compile Include="Items\Weapon.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
