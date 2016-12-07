@@ -1,9 +1,12 @@
 ﻿namespace DibiloFour.Core.Commands
 {
-    using System;
+
     using Data;
+
+    using Core;
+
     using Interfaces;
-    using Models;
+
     using Models.Dibils;
 
     public class NewGameCommand : ICommand
@@ -12,16 +15,16 @@
 
         private readonly DibiloFourContext context;
 
-        private Player currentActivePlayer;
+        private readonly Engine engine;
 
         private readonly IOutputWriter writer;
 
         private readonly IInputReader reader;
 
-        public NewGameCommand(DibiloFourContext context, Player currentActivePlayer, IOutputWriter writer, IInputReader reader)
+        public NewGameCommand(DibiloFourContext context, Engine engine, IOutputWriter writer, IInputReader reader)
         {
             this.context = context;
-            this.currentActivePlayer = currentActivePlayer;
+            this.engine = engine;
             this.writer = writer;
             this.reader = reader;
 
@@ -41,18 +44,10 @@
             this.writer.WriteLine("New character name:");
             string name = this.reader.ReadLine();
 
-            this.currentActivePlayer = new Player(name);
+            this.engine.CurrentlyActivePlayer = new Player(name);
 
-            this.context.Dibils.Add(this.currentActivePlayer);
+            this.context.Players.Add(this.engine.CurrentlyActivePlayer);
             this.context.SaveChanges();
         }
-
-        // TODO: make this a command
-        //void DeletePlayer(int playerId)
-        //{
-        //    var player = this.context.Dibils.Find(playerId);
-        //    this.context.Dibils.Remove(player);
-        //    this.context.SaveChanges();
-        //}
     }
 }

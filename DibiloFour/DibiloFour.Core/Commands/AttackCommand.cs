@@ -46,7 +46,7 @@
         private bool DoesThisPlayerLocationContainCharacters()
         {
             int currentPlayerLocationId = this.activePlayer.CurrentLocationId.Value;
-            var characters = this.context.Dibils.Where(i => i.CurrentLocationId == currentPlayerLocationId);
+            var characters = this.context.Villains.Where(i => i.CurrentLocationId == currentPlayerLocationId);
 
             if (!characters.Any())
             {
@@ -59,7 +59,7 @@
         private string ListAttackableCharactersInCurrentPlayerLocation()
         {
             int currentPlayerLocationId = this.activePlayer.CurrentLocationId.Value;
-            var characters = this.context.Dibils.Where(i => i.CurrentLocationId == currentPlayerLocationId);
+            var characters = this.context.Villains.Where(i => i.CurrentLocationId == currentPlayerLocationId);
 
             StringBuilder output = new StringBuilder();
 
@@ -84,7 +84,7 @@
         {
             //TODO: Test
 
-            var enemy = this.context.Dibils.FirstOrDefault(d => d.Id == characterId);
+            var enemy = this.context.Villains.FirstOrDefault(d => d.Id == characterId);
 
             if (enemy == null)
             {

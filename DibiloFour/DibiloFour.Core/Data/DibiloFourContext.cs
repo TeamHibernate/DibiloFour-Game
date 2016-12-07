@@ -13,22 +13,70 @@ namespace DibiloFour.Core.Data
             Database.SetInitializer<DibiloFourContext>(new DibiloFourDBInitializer());
         }
 
-        public virtual IDbSet<Dibil> Dibils { get; set; }
+        public virtual IDbSet<Player> Players
+        {
+            get; set;
+        }
 
-        public virtual IDbSet<Chest> Chests { get; set; }
+        public virtual IDbSet<Villain> Villains
+        {
+            get; set;
+        }
 
-        public virtual IDbSet<Item> Items { get; set; }
+        public virtual IDbSet<Chest> Chests
+        {
+            get; set;
+        }
 
-        public virtual IDbSet<Inventory> Inventories { get; set; }
 
-        public virtual IDbSet<Location> Locations { get; set; }
+        public virtual IDbSet<Potion> Potions
+        {
+            get; set;
+        }
 
-        public virtual IDbSet<ItemShop> ItemShops { get; set; }
+        public virtual IDbSet<Weapon> Weapons
+        {
+            get; set;
+        }
 
-        public virtual IDbSet<ItemType> ItemTypes { get; set; }
+        public virtual IDbSet<Apprael> Appraels
+        {
+            get; set;
+        }
 
-        public virtual IDbSet<LockType> LockTypes { get; set; }
+        public virtual IDbSet<Book> Books
+        {
+            get; set;
+        }
 
-        public virtual IDbSet<LocationType> LocationTypes { get; set; }
+        public virtual IDbSet<Inventory> Inventories
+        {
+            get; set;
+        }
+
+        public virtual IDbSet<Location> Locations
+        {
+            get; set;
+        }
+
+        public virtual IDbSet<ItemShop> ItemShops
+        {
+            get; set;
+        }
+
+        public virtual IDbSet<ItemType> ItemTypes
+        {
+            get; set;
+        }
+
+        public virtual IDbSet<LockType> LockTypes
+        {
+            get; set;
+        }
+
+        public virtual IDbSet<LocationType> LocationTypes
+        {
+            get; set;
+        }
     }
 }

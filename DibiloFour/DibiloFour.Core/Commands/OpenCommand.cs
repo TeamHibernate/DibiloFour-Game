@@ -1,5 +1,7 @@
 ﻿namespace DibiloFour.Core.Commands
 {
+
+    using System.Data.Entity;
     using System.Linq;
     using System.Text;
     using Data;
@@ -98,10 +100,12 @@
 
         private void PlayerTakeChestItems(int chestId)
         {
-            int chestInventoryId = this.context.Chests.Where(i => i.Id == chestId).Select(id => id.Id).FirstOrDefault();
-            var chestItems = this.context.Items.Where(i => i.InventoryId == chestInventoryId);
             
-            foreach (var item in chestItems)
+            var chestInventory = this.context.Chests.Include(c => c.Inventory)
+                .First(i => i.Id == chestId)
+                .Inventory.Content.ToList();
+
+            foreach (var item in chestInventory)
             {
                 item.InventoryId = this.activePlayer.InventoryId;
                 this.writer.WriteLine($"Item {item.Name} added to your inventory.");

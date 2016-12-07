@@ -62,7 +62,7 @@
         #region Methods
         private void InitializeCommands()
         {
-            this.commandsManager.AddCommand(new NewGameCommand(this.context, this.CurrentlyActivePlayer, this.outputWriter, this.inputReader));
+            this.commandsManager.AddCommand(new NewGameCommand(this.context, this, this.outputWriter, this.inputReader));
             this.commandsManager.AddCommand(new AttackCommand(this.context, this.CurrentlyActivePlayer, this.outputWriter, this.inputReader));
             this.commandsManager.AddCommand(new BuyCommand(this.context, this.CurrentlyActivePlayer, this.inputReader, this.outputWriter));
             this.commandsManager.AddCommand(new ExitCommand(this.outputWriter));
@@ -92,21 +92,11 @@
                 catch (Exception exception)
                 {
                     this.outputWriter.WriteLine(exception.Message);
-
-                    this.outputWriter.WriteLine(new string('-', 50));
-                    this.outputWriter.WriteLine("Available Commands");
-
-                    foreach (var command in this.commandsManager.AvailableCommands)
-                    {
-                        var commandExplanation = this.commandsManager.GetCommandExplanation(command);
-                        this.outputWriter.WriteLine($"{command} - {commandExplanation}");
-                    }
-
-                    this.outputWriter.WriteLine(new string('-', 50));
+                    this.commandsManager.Execute("Help");
                 }
             }
         }
-
+        
         private void StartGameInstructions()
         {
             StringBuilder output = new StringBuilder();
@@ -121,6 +111,7 @@
         {
             this.OutputWriter.WriteLine("#### Dibilo Four ####");
         }
+        
         #endregion
     }
 }

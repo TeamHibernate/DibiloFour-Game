@@ -17,7 +17,7 @@
         
         public void Execute(string command)
         {
-            var commandData = command.Split(new char[] { CommandArgsDelimiter }, StringSplitOptions.RemoveEmptyEntries);
+            var commandData = command.ToLowerInvariant().Split(new char[] { CommandArgsDelimiter }, StringSplitOptions.RemoveEmptyEntries);
             var commandName = commandData[0];
             
             if (!this.AvailableCommands.Contains(commandName))
