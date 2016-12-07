@@ -5,13 +5,13 @@
 
     public class HelpCommand : ICommand
     {
-        private readonly IOutputWriter writer;
+        private readonly CommandsManager commandsManager;
 
-        private readonly string[] availableCommands;
+        private readonly IOutputWriter writer;
 
         public HelpCommand(CommandsManager commandsManager, IOutputWriter writer)
         {
-            this.availableCommands = commandsManager.AvailableCommands;
+            this.commandsManager = commandsManager;
             this.writer = writer;
             this.Explanation = "Shows valid commands";
         }
@@ -20,11 +20,16 @@
 
         public void Execute(string[] args)
         {
-            this.writer.WriteLine("Available commands: ");
-            foreach (var availableCommand in this.availableCommands)
+            this.writer.WriteLine(new string('-', 50));
+            this.writer.WriteLine("Available Commands");
+
+            foreach (var command in this.commandsManager.AvailableCommands)
             {
-                this.writer.WriteLine(availableCommand);
+                var commandExplanation = this.commandsManager.GetCommandExplanation(command);
+                this.writer.WriteLine($"{command} - {commandExplanation}");
             }
+
+            this.writer.WriteLine(new string('-', 50));
         }
     }
 }
