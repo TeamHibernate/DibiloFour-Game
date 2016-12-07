@@ -45,3 +45,11 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+
+
+DibiloFour/DibiloFour.ConsoleApplication/bin/*
+DibiloFour/DibiloFour.ConsoleApplication/obj/*
+DibiloFour/DibiloFour.Core/bin/*
+DibiloFour/DibiloFour.Core/obj/*
+DibiloFour/DibiloFour.Models/bin/*
+DibiloFour/DibiloFour.Models/obj/*
