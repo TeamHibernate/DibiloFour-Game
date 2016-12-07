@@ -56,6 +56,7 @@
     <Compile Include="Commands\ExitCommand.cs" />
     <Compile Include="Commands\GotoCommand.cs" />
     <Compile Include="Commands\HelpCommand.cs" />
+    <Compile Include="Commands\LoadGameCommand.cs" />
     <Compile Include="Commands\NewGameCommand.cs" />
     <Compile Include="Commands\OpenCommand.cs" />
     <Compile Include="Commands\SellCommand.cs" />

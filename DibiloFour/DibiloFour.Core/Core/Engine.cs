@@ -1,6 +1,8 @@
 ﻿namespace DibiloFour.Core.Core
 {
     using System;
+    using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Validation;
     using System.Linq;
     using System.Text;
 
@@ -54,7 +56,7 @@
                 this.outputWriter = value;
             }
         }
-        
+
         public Player CurrentlyActivePlayer { get; set; }
 
         #endregion
@@ -76,22 +78,15 @@
 
         public void Run()
         {
-            /* 
-            if (this.context.Database.Exists())
-            {
-                this.context.Database.Delete();
-            }
-            /*/
-            
             if (!this.context.Database.Exists())
             {
                 this.outputWriter.WriteLine("Creating database...");
-                this.context.Database.Create();
+                this.context.Database.Initialize(true);
             }
-            
+
             this.WelcomeScreen();
             this.StartGameInstructions();
-            
+
             while (true)
             {
                 this.outputWriter.WriteLine(new string('-', 50));
@@ -113,7 +108,7 @@
                 }
             }
         }
-        
+
         private void StartGameInstructions()
         {
             StringBuilder output = new StringBuilder();
@@ -138,7 +133,7 @@
         {
             this.OutputWriter.WriteLine("#### Dibilo Four ####");
         }
-        
+
         #endregion
     }
 }

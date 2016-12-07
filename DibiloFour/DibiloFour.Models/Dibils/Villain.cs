@@ -1,5 +1,8 @@
 ﻿namespace DibiloFour.Models.Dibils
 {
+    using System.ComponentModel.DataAnnotations.Schema;
+
+    [Table("Villains")]
     public class Villain : Dibil
     {
         private const int DefaultHealth = 100;

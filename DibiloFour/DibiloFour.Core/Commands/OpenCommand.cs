@@ -123,7 +123,7 @@
 
             foreach (var item in chestInventory)
             {
-                item.InventoryId = this.activePlayer.InventoryId;
+                item.InventoryId = (int) this.activePlayer.InventoryId;
                 this.writer.WriteLine($"Item {item.Name} added to your inventory.");
             }
 

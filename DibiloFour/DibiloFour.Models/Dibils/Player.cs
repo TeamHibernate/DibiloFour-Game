@@ -1,16 +1,16 @@
 ﻿namespace DibiloFour.Models.Dibils
 {
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
+    [Table("Players")]
     public class Player : Dibil
     {
         private const int DefaultHealth = 100;
         private const int DefaultMoney = 1000;
         private const int DefaultDamage = 8;
         private const int DefaultArmour = 0;
-
         private const int DefaultLockpickingSkill = 0;
-
         private const int DefaultSpeechSkill = 10;
 
         public Player()

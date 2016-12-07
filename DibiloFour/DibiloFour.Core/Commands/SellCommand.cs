@@ -74,7 +74,7 @@
 
         private string ListPlayerInventoryItems()
         {
-            int currentPlayerInventoryId = this.activePlayer.InventoryId;
+            int currentPlayerInventoryId = (int) this.activePlayer.InventoryId;
             var items = this.context.Inventories.FirstOrDefault(i => i.Id == currentPlayerInventoryId);
 
             StringBuilder output = new StringBuilder();

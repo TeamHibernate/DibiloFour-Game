@@ -1,6 +1,8 @@
 ﻿namespace DibiloFour.Core.Data
 {
+    using System;
     using System.Data.Entity;
+    using System.Data.Entity.Validation;
     using System.Linq;
     using Models;
     using Models.Dibils;
@@ -62,19 +64,26 @@
             context.Inventories.Add(treasureChestOne);
             context.Inventories.Add(treasureChestTwo);
 
+            context.SaveChanges();
+
+            // проблем
             // Initialize Dibils
-            var OwenShopKeeper = new Villain(1, "Owen", 100, 1);
-            var NaskoTheBandit = new Villain(2, "Nasko", 100, 3);
-            var KermitTheFarmer = new Villain(3, "Kermit", 100, 4);
+            var OwenShopKeeper = new Villain(1, "Owen", 100, 1, OwenShopKeeperInventory);
+            var NaskoTheBandit = new Villain(2, "Nasko", 100, 3, NaskoTheBanditInventory);
+            var KermitTheFarmer = new Villain(3, "Kermit", 100, 4, KermitTheFarmerInventory);
 
             context.Villains.Add(OwenShopKeeper);
             context.Villains.Add(NaskoTheBandit);
             context.Villains.Add(KermitTheFarmer);
 
+            context.SaveChanges();
+
             // Initialize ItemShops
             var OwenShop = new ItemShop(1, "Owen Shop", 1000M, 1, 1, 2);
 
             context.ItemShops.Add(OwenShop);
+
+            context.SaveChanges();
 
             // Initialize Chests
             var chestOneInBanditCave = new Chest(1, 1, 3, 5);
@@ -82,6 +91,8 @@
 
             context.Chests.Add(chestOneInBanditCave);
             context.Chests.Add(chestTwoInBanditCave);
+
+            context.SaveChanges();
 
             // Initialize Items
             var ironSwordInShop = new Weapon(1, "Iron Sword", "Sword made of iron.", Material.Iron, 10, 10, 2);
@@ -94,9 +105,13 @@
             context.Weapons.Add(woodenSwordInKermit);
             context.Weapons.Add(steelSwordInChestTwo);
 
+            context.SaveChanges();
+
             var ironArmourInShop = new Apprael(1, "Iron Armour", "Armour made of iron.", Material.Iron, 10, 10, 2);
             
             context.Appraels.Add(ironArmourInShop);
+
+            context.SaveChanges();
 
             var bookOfMajorLockpickingInChestOne = new Book(1, "Book Of Lockpicking", "Book of major lockpicking", 4, 5)
             {
@@ -105,6 +120,8 @@
             };
 
             context.Books.Add(bookOfMajorLockpickingInChestOne);
+
+            context.SaveChanges();
 
             var potionOfMajorHealthInChestOne = new Potion(1, "Health Potion", "Potion of major health", 3, 100, 10);
             

@@ -59,7 +59,7 @@
         public Location CurrentLocation { get; set; }
 
         [ForeignKey("Inventory")]
-        public int InventoryId { get; set; }
+        public int? InventoryId { get; set; }
 
         public Inventory Inventory { get; set; }
         #endregion
