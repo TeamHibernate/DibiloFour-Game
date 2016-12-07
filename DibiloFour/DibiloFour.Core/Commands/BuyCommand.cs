@@ -1,6 +1,7 @@
 ﻿namespace DibiloFour.Core.Commands
 {
 
+    using System;
     using System.Linq;
     using System.Text;
     using Data;
@@ -30,22 +31,39 @@
 
         public void Execute(string[] args)
         {
-            if (this.HaveHereShops())
+            if (!this.HaveHereShops())
+            {
+                this.writer.WriteLine("There are not any shops near you.");
+                return;
+            }
+
+            if (args.Length == 0)
             {
                 this.writer.WriteLine(this.ListItemShopInventoryItems());
-                int itemToBuyId = this.GetIdFromInput();
-                bool haveBoughtItem = this.TryToBuyItem(itemToBuyId);
-                if (!haveBoughtItem)
-                {
-                    this.writer.WriteLine("You do not enough money.");
-                }
+                this.writer.WriteLine("Usage buy id. Example buy 1");
+                return;
+            }
+            
+            int id;
+            var isValidNumber = int.TryParse(args[0], out id);
+
+            if (!isValidNumber)
+            {
+                throw new Exception("Id must be a number");
+            }
+            
+            var haveBoughtItem = this.TryToBuyItem(id);
+
+            if (!haveBoughtItem)
+            {
+                this.writer.WriteLine("You do not enough money.");
             }
             else
             {
-                this.writer.WriteLine("There are not any shops near you.");
+                this.writer.WriteLine("Successfully purchased item");
             }
         }
-        
+
         private bool HaveHereShops()
         {
             bool locationHaveShops = this.context.ItemShops.Any(shop => shop.LocationId == this.activePlayer.CurrentLocationId);
@@ -89,16 +107,6 @@
             }
 
             return false;
-        }
-
-        private int GetIdFromInput()
-        {
-            //TODO: Твърде много се повтаря, ще е хубаво да е в някакъв отделен клас Utils?
-            this.writer.WriteLine("Input Id: ");
-
-            int id = int.Parse(this.reader.ReadLine());
-
-            return id;
         }
     }
 }

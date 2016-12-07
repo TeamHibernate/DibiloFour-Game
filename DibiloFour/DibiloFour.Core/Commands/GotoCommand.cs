@@ -1,6 +1,7 @@
 ﻿namespace DibiloFour.Core.Commands
 {
 
+    using System;
     using System.Linq;
     using System.Text;
     using Data;
@@ -31,8 +32,21 @@
 
         public void Execute(string[] args)
         {
-            this.writer.Write(this.ListLocations());
-            int locationId = this.GetIdFromInput();
+            if (args.Length == 0)
+            {
+                this.writer.WriteLine(this.ListLocations());
+                this.writer.WriteLine("Usage: goto id. Example: goto 1");
+                return;
+            }
+
+            int locationId;
+            var isValidNumber = int.TryParse(args[0], out locationId);
+
+            if (!isValidNumber)
+            {
+                throw new Exception("Id must be valid number");
+            }
+
             this.PlayerGoToLocation(locationId);
             this.writer.WriteLine(this.GetPlayerCurrentLocation());
         }

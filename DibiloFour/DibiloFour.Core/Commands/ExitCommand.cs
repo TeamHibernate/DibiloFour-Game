@@ -13,7 +13,7 @@
         public ExitCommand(IOutputWriter writer)
         {
             this.writer = writer;
-            this.Explanation = "Save game and exit application.";
+            this.Explanation = "Exits the game";
         }
 
         public string Explanation { get; private set; }

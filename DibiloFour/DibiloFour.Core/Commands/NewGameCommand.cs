@@ -5,6 +5,8 @@
 
     using Core;
 
+    using DibiloFour.Models;
+
     using Interfaces;
 
     using Models.Dibils;
@@ -41,11 +43,13 @@
         
         private void CreatePlayerCharacter()
         {
-            this.writer.WriteLine("New character name:");
-            string name = this.reader.ReadLine();
+            this.writer.Write("New character name:");
+            var name = this.reader.ReadLine();
 
-            this.engine.CurrentlyActivePlayer = new Player(name);
+            var inventory = new Inventory();
+            this.engine.CurrentlyActivePlayer = new Player(name, inventory);
 
+            this.context.Inventories.Add(inventory);
             this.context.Players.Add(this.engine.CurrentlyActivePlayer);
             this.context.SaveChanges();
         }

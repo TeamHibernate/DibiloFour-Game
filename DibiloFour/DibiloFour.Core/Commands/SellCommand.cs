@@ -1,6 +1,7 @@
 ﻿namespace DibiloFour.Core.Commands
 {
 
+    using System;
     using System.Linq;
     using System.Text;
     using Data;
@@ -26,26 +27,45 @@
             this.Explanation = "If in item shop location list player inventory.";
         }
 
-        public string Explanation { get; private set; }
+        public string Explanation
+        {
+            get; private set;
+        }
 
         public void Execute(string[] args)
         {
-            if (this.HaveHereShops())
+            if (!this.HaveHereShops())
+            {
+                this.writer.WriteLine("There are not any shops near you.");
+                return;
+            }
+
+            if (args.Length == 0)
             {
                 this.writer.WriteLine(this.ListPlayerInventoryItems());
-                int itemToSellId = this.GetIdFromInput();
-                bool haveSoldItem = this.TryToSellItem(itemToSellId);
-                if (!haveSoldItem)
-                {
-                    this.writer.WriteLine("Shop owner do not have enough.");
-                }
+                this.writer.WriteLine("Usage: sell id. Example: sell 1");
+                return;
+            }
+            
+            int itemToSellId;
+            var isValidNumber = int.TryParse(args[0], out itemToSellId);
+
+            if (!isValidNumber)
+            {
+                throw new Exception("Id must be a valid number");
+            }
+
+            bool haveSoldItem = this.TryToSellItem(itemToSellId);
+            if (!haveSoldItem)
+            {
+                this.writer.WriteLine("Shop owner do not have enough.");
             }
             else
             {
-                this.writer.WriteLine("There are not any shops near you.");
+                this.writer.WriteLine("Successfully sold");
             }
         }
-        
+
         private bool HaveHereShops()
         {
             bool locationHaveShops = this.context.ItemShops.Any(shop => shop.LocationId == this.activePlayer.CurrentLocationId);
@@ -61,14 +81,15 @@
 
             foreach (var item in items.Content)
             {
+                output.AppendLine();
                 output.AppendLine($"Id: {item.Id}, Name: {item.Name}");
                 output.AppendLine($"Description: {item.Description}");
                 output.AppendLine($"Price: {item.Value}");
             }
 
-            return output.ToString();
+            return output.ToString().TrimStart();
         }
-        
+
         private int GetIdFromInput()
         {
             //TODO: Твърде много се повтаря, ще е хубаво да е в някакъв отделен клас Utils?

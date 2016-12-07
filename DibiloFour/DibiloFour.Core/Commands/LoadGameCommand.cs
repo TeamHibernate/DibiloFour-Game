@@ -1,12 +1,12 @@
 ﻿namespace DibiloFour.Core.Commands
 {
-
     using System;
     using System.Linq;
+    using System.Text;
 
-    using DibiloFour.Core.Core;
-    using DibiloFour.Core.Data;
-    using DibiloFour.Core.Interfaces;
+    using Core;
+    using Data;
+    using Interfaces;
 
     public class LoadGameCommand : ICommand
     {
@@ -23,16 +23,17 @@
             this.writer = writer;
         }
 
-        public string Explanation => "Doesnt need explanation";
+        public string Explanation => "Load existing character";
 
         public void Execute(string[] args)
         {
             if (args.Length < 1)
             {
-                this.ListCreatedPlayers();
+                this.writer.WriteLine(this.ListCreatedPlayers());
+                this.writer.WriteLine("Usage loadgame id. Example loadgame 1");
                 return;
             }
-
+            
             int id;
             var isValidNumber = int.TryParse(args[0], out id);
 
@@ -52,16 +53,19 @@
             this.writer.WriteLine($"Successfully loaded player {player.Name}");
         }
 
-        void ListCreatedPlayers()
+        private string ListCreatedPlayers()
         {
+            var output = new StringBuilder();
             this.context.Players.Select(
                 p => new
-                {
-                    p.Id,
-                    p.Name
-                })
+                     {
+                         p.Id,
+                         p.Name
+                     })
                 .ToList()
-                .ForEach(p => this.writer.WriteLine($"Id: {p.Id} Name: {p.Name}"));
+                .ForEach(p => output.AppendFormat("Id {0} Name {1}{2}", p.Id, p.Name, Environment.NewLine));
+
+            return output.ToString();
         }
     }
 }

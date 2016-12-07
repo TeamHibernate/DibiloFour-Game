@@ -93,6 +93,8 @@
 
             //TODO: opravi go be skapanqk :))) 
 
+            throw new NotImplementedException();
+
             //var playerAttack = this.activePlayer.CurrentWeapon.Effect;
 
             //enemy.Health -= Math.Max(playerAttack - enemy.CurrentArmour.Effect, 0);

@@ -1,5 +1,7 @@
 ﻿namespace DibiloFour.Core.Commands
 {
+
+    using System;
     using System.Linq;
     using System.Text;
     using Data;
@@ -24,26 +26,30 @@
             this.activePlayer = activePlayer;
             this.reader = reader;
             this.writer = writer;
-            this.Explanation = "List inventory items to use.";
+            this.Explanation = "List inventory items to use. Usage - use [id]";
         }
 
         public string Explanation { get; private set; }
 
         public void Execute(string[] args)
         {
-            this.writer.WriteLine(this.ListPlayerInventoryItems());
-            int itemId = this.GetIdFromInput();
-            this.ApplyInventoryItem(itemId);
+            if (args.Length == 0)
+            {
+                this.writer.WriteLine(this.ListPlayerInventoryItems());
+                return;
+            }
+
+            int id;
+            var isValidNumber = int.TryParse(args[0], out id);
+
+            if (!isValidNumber)
+            {
+                throw new Exception("Id must be a number");
+            }
+            
+            this.ApplyInventoryItem(id);
         }
-
-        private int GetIdFromInput()
-        {
-            this.writer.WriteLine("Input Id: ");
-
-            int id = int.Parse(this.reader.ReadLine());
-
-            return id;
-        }
+        
 
         private string ListPlayerInventoryItems()
         {
@@ -61,9 +67,14 @@
         
         private void ApplyInventoryItem(int itemId)
         {
-            Item wantedItem = this.activePlayer.Inventory.Content.FirstOrDefault(item => item.Id == itemId);
+            var item = this.activePlayer.Inventory.Content.FirstOrDefault(i => i.Id == itemId);
 
-            wantedItem.Use(this.activePlayer);
+            if (item == null)
+            {
+                throw new ArgumentException("Player doesnt have item with id " + itemId);
+            }
+
+            item.Use(this.activePlayer);
         }
     }
 }
