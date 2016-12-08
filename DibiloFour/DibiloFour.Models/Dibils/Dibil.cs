@@ -1,5 +1,7 @@
 ﻿namespace DibiloFour.Models.Dibils
 {
+
+    using System;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using Items;
@@ -63,5 +65,22 @@
 
         public Inventory Inventory { get; set; }
         #endregion
+
+        public virtual void Attack(Dibil dibil)
+        {
+            dibil.AcceptAttack(this.Damage);
+        }
+
+        public virtual void AcceptAttack(int damage)
+        {
+            var health = this.Health - damage;
+
+            if (this.CurrentArmour != null)
+            {
+                health += (int)this.CurrentArmour.Value;
+            }
+
+            this.Health = Math.Max(0, health);
+        }
     }
 }

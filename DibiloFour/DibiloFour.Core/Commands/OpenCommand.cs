@@ -115,7 +115,7 @@
 
             foreach (var item in chestInventory)
             {
-                item.InventoryId = (int) this.engine.CurrentlyActivePlayer.InventoryId;
+                item.Inventory = this.engine.CurrentlyActivePlayer.Inventory;
                 this.writer.WriteLine($"Item {item.Name} added to your inventory.");
             }
 

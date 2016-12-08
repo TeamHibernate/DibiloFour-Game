@@ -2,11 +2,11 @@
 {
 
     using System;
+    using System.Data.Entity;
     using System.Linq;
     using System.Text;
     using Data;
     using Interfaces;
-    using Models.Dibils;
 
     public class AttackCommand : ICommand
     {
@@ -87,34 +87,29 @@
 
         private void PlayerAttack(int characterId)
         {
-            //TODO: Test
-
             if (this.engine.CurrentlyActivePlayer == null)
             {
                 throw new InvalidOperationException("Must be logged in");
             }
 
-            var enemy = this.context.Villains.FirstOrDefault(d => d.Id == characterId);
+            var enemy = this.context.Villains.Include(v => v.Inventory)
+                .FirstOrDefault(d => d.Id == characterId);
 
             if (enemy == null)
             {
                 throw new ArgumentException("Cant found enemy with id " + characterId);
             }
-            
-            throw new NotImplementedException();
 
-            var playerAttack = this.engine.CurrentlyActivePlayer.CurrentWeapon;
-            playerAttack.Use(enemy);
+            var beforeHealth = enemy.Health;
+            this.engine.CurrentlyActivePlayer.Attack(enemy);
 
-            //enemy.Health -= Math.Max(playerAttack - enemy.CurrentArmour.Effect, 0);
+            var removedHealth = beforeHealth - enemy.Health;
 
             this.writer.WriteLine("You attacked " + enemy.Name);
+            this.writer.WriteLine($"You inflicted {removedHealth} damage");
+            this.writer.WriteLine($"{enemy.Name} now have {enemy.Health} health");
 
-            if (enemy.Health > 0)
-            {
-                this.writer.WriteLine(enemy.Health + " health is " + enemy.Health);
-            }
-            else
+            if (enemy.Health <= 0)
             {
                 this.writer.WriteLine(enemy.Name + " is dead");
 
@@ -123,8 +118,11 @@
 
                 this.engine.CurrentlyActivePlayer.Coins += enemyCoins;
                 enemy.Coins = 0;
-                
-                enemyItems.ForEach(this.engine.CurrentlyActivePlayer.Inventory.Content.Add);
+
+                var currentPlayerInventoryId = this.engine.CurrentlyActivePlayer.InventoryId;
+                var currentPlayerInventory = this.context.Inventories.First(i => i.Id == currentPlayerInventoryId);
+
+                enemyItems.ForEach(currentPlayerInventory.Content.Add);
                 enemy.Inventory.Content.Clear();
 
                 this.writer.WriteLine("You picked up:");
@@ -133,9 +131,10 @@
                 if (enemyItems.Count > 0)
                 {
                     this.writer.WriteLine("Items:");
-                    enemyItems.Select(i => i.Name).ToList()
+                    enemyItems.Select(i => i.Name)
+                        .ToList()
                         .ForEach(this.writer.WriteLine);
-                }                
+                }
             }
 
             this.context.SaveChanges();

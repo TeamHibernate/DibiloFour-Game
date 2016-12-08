@@ -62,7 +62,7 @@
         {
             this.commandsManager.AddCommand(new NewGameCommand(this.context, this, this.outputWriter, this.inputReader));
             this.commandsManager.AddCommand(new LoadGameCommand(this, this.context, this.outputWriter));
-            this.commandsManager.AddCommand(new AttackCommand(this.context, this.CurrentlyActivePlayer, this.outputWriter, this.inputReader));
+            this.commandsManager.AddCommand(new AttackCommand(this.context, this, this.outputWriter, this.inputReader));
             this.commandsManager.AddCommand(new BuyCommand(this.context, this, this.outputWriter));
             this.commandsManager.AddCommand(new ExitCommand(this.outputWriter));
             this.commandsManager.AddCommand(new GotoCommand(this.context, this, this.outputWriter));
@@ -74,8 +74,6 @@
 
         public void Run()
         {
-            this.context.Database.Delete();
-
             if (!this.context.Database.Exists())
             {
                 this.outputWriter.WriteLine("Creating database...");

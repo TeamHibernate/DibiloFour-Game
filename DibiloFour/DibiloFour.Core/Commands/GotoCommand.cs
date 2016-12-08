@@ -66,7 +66,14 @@
 
         private void PlayerGoToLocation(int locationId)
         {
-            this.engine.CurrentlyActivePlayer.CurrentLocationId = locationId;
+            var location = this.context.Locations.FirstOrDefault(l => l.Id == locationId);
+
+            if (location == null)
+            {
+                throw new ArgumentException($"Location with id {locationId} doesnt exists");
+            }
+
+            this.engine.CurrentlyActivePlayer.CurrentLocation = location;
             this.context.SaveChanges();
         }
         

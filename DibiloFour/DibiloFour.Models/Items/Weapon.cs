@@ -24,7 +24,7 @@
         public override void Use(Dibil dibil)
         {
             base.Use(dibil);
-            dibil.Damage -= this.BonusDamage;
+            dibil.Damage += this.BonusDamage;
         }
 
         public override void Disuse(Dibil dibil)
