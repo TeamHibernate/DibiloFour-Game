@@ -2,6 +2,7 @@
 {
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Text;
 
     [Table("Players")]
     public class Player : Dibil
@@ -34,5 +35,16 @@
 
         [Required]
         public int SpeechSkill { get; set; }
+
+        public override string Details()
+        {
+            var output = new StringBuilder();
+
+            output.Append(base.Details());
+            output.AppendLine($"LockpickingSkill {this.LockpickingSkill}");
+            output.AppendLine($"SpeechSkill {this.SpeechSkill}");
+
+            return output.ToString();
+        }
     }
 }

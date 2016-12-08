@@ -70,6 +70,7 @@
             this.commandsManager.AddCommand(new SellCommand(this.context, this, this.outputWriter));
             this.commandsManager.AddCommand(new UseCommand(this.context, this, this.outputWriter));
             this.commandsManager.AddCommand(new HelpCommand(this.commandsManager, this.outputWriter));
+            this.commandsManager.AddCommand(new DetailsCommand(this, this.outputWriter));
         }
 
         public void Run()

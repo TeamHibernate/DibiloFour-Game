@@ -4,6 +4,8 @@
     using System;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Text;
+
     using Items;
 
     public abstract class Dibil
@@ -81,6 +83,19 @@
             }
 
             this.Health = Math.Max(0, health);
+        }
+
+        public virtual string Details()
+        {
+            var output = new StringBuilder();
+
+            output.AppendLine($"Name: {this.Name}");
+            output.AppendLine($"Health: {this.Health}");
+            output.AppendLine($"Attack: {this.Damage}");
+            output.AppendLine($"Armour: {this.Armour}");
+            output.AppendLine($"Coins: {this.Coins}");
+
+            return output.ToString();
         }
     }
 }

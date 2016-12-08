@@ -1,6 +1,7 @@
 ﻿namespace DibiloFour.Models.Dibils
 {
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Text;
 
     [Table("Villains")]
     public class Villain : Dibil
