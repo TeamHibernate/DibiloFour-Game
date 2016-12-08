@@ -1,15 +1,12 @@
 ﻿namespace DibiloFour.Core.Core
 {
     using System;
-    using System.Data.Entity.Infrastructure;
-    using System.Data.Entity.Validation;
-    using System.Linq;
     using System.Text;
 
     using Commands;
     using Data;
     using Interfaces;
-    using Models;
+
     using Models.Dibils;
 
     public class Engine : IEngine
@@ -58,7 +55,6 @@
         }
 
         public Player CurrentlyActivePlayer { get; set; }
-
         #endregion
 
         #region Methods
@@ -67,17 +63,19 @@
             this.commandsManager.AddCommand(new NewGameCommand(this.context, this, this.outputWriter, this.inputReader));
             this.commandsManager.AddCommand(new LoadGameCommand(this, this.context, this.outputWriter));
             this.commandsManager.AddCommand(new AttackCommand(this.context, this.CurrentlyActivePlayer, this.outputWriter, this.inputReader));
-            this.commandsManager.AddCommand(new BuyCommand(this.context, this.CurrentlyActivePlayer, this.inputReader, this.outputWriter));
+            this.commandsManager.AddCommand(new BuyCommand(this.context, this, this.outputWriter));
             this.commandsManager.AddCommand(new ExitCommand(this.outputWriter));
-            this.commandsManager.AddCommand(new GotoCommand(this.context, this.CurrentlyActivePlayer, this.inputReader, this.outputWriter));
-            this.commandsManager.AddCommand(new OpenCommand(this.context, this.CurrentlyActivePlayer, this.inputReader, this.outputWriter));
-            this.commandsManager.AddCommand(new SellCommand(this.context, this.CurrentlyActivePlayer, this.inputReader, this.outputWriter));
-            this.commandsManager.AddCommand(new UseCommand(this.context, this.CurrentlyActivePlayer, this.inputReader, this.outputWriter));
+            this.commandsManager.AddCommand(new GotoCommand(this.context, this, this.outputWriter));
+            this.commandsManager.AddCommand(new OpenCommand(this.context, this, this.outputWriter));
+            this.commandsManager.AddCommand(new SellCommand(this.context, this, this.outputWriter));
+            this.commandsManager.AddCommand(new UseCommand(this.context, this, this.outputWriter));
             this.commandsManager.AddCommand(new HelpCommand(this.commandsManager, this.outputWriter));
         }
 
         public void Run()
         {
+            this.context.Database.Delete();
+
             if (!this.context.Database.Exists())
             {
                 this.outputWriter.WriteLine("Creating database...");

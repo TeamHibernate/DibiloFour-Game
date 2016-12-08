@@ -12,16 +12,16 @@
     {
         private readonly DibiloFourContext context;
 
-        private readonly Player activePlayer;
+        private readonly IEngine engine;
 
         private readonly IOutputWriter writer;
 
         private readonly IInputReader reader;
 
-        public AttackCommand(DibiloFourContext context, Player activePlayer, IOutputWriter writer, IInputReader reader)
+        public AttackCommand(DibiloFourContext context, IEngine engine, IOutputWriter writer, IInputReader reader)
         {
             this.context = context;
-            this.activePlayer = activePlayer;
+            this.engine = engine;
             this.writer = writer;
             this.reader = reader;
             this.Explanation = " List attackable characters nearby.";
@@ -31,6 +31,11 @@
 
         public void Execute(string[] args)
         {
+            if (this.engine.CurrentlyActivePlayer == null)
+            {
+                throw new InvalidOperationException("Not logged in.");
+            }
+
             if (this.DoesThisPlayerLocationContainCharacters())
             {
                 this.writer.WriteLine(this.ListAttackableCharactersInCurrentPlayerLocation());
@@ -45,7 +50,7 @@
 
         private bool DoesThisPlayerLocationContainCharacters()
         {
-            int currentPlayerLocationId = this.activePlayer.CurrentLocationId.Value;
+            int currentPlayerLocationId = this.engine.CurrentlyActivePlayer.CurrentLocationId.Value;
             var characters = this.context.Villains.Where(i => i.CurrentLocationId == currentPlayerLocationId);
 
             if (!characters.Any())
@@ -58,7 +63,7 @@
 
         private string ListAttackableCharactersInCurrentPlayerLocation()
         {
-            int currentPlayerLocationId = this.activePlayer.CurrentLocationId.Value;
+            int currentPlayerLocationId = this.engine.CurrentlyActivePlayer.CurrentLocationId.Value;
             var characters = this.context.Villains.Where(i => i.CurrentLocationId == currentPlayerLocationId);
 
             StringBuilder output = new StringBuilder();
@@ -84,18 +89,22 @@
         {
             //TODO: Test
 
+            if (this.engine.CurrentlyActivePlayer == null)
+            {
+                throw new InvalidOperationException("Must be logged in");
+            }
+
             var enemy = this.context.Villains.FirstOrDefault(d => d.Id == characterId);
 
             if (enemy == null)
             {
                 throw new ArgumentException("Cant found enemy with id " + characterId);
             }
-
-            //TODO: opravi go be skapanqk :))) 
-
+            
             throw new NotImplementedException();
 
-            //var playerAttack = this.activePlayer.CurrentWeapon.Effect;
+            var playerAttack = this.engine.CurrentlyActivePlayer.CurrentWeapon;
+            playerAttack.Use(enemy);
 
             //enemy.Health -= Math.Max(playerAttack - enemy.CurrentArmour.Effect, 0);
 
@@ -112,10 +121,10 @@
                 var enemyCoins = enemy.Coins;
                 var enemyItems = enemy.Inventory.Content.ToList();
 
-                this.activePlayer.Coins += enemyCoins;
+                this.engine.CurrentlyActivePlayer.Coins += enemyCoins;
                 enemy.Coins = 0;
                 
-                enemyItems.ForEach(this.activePlayer.Inventory.Content.Add);
+                enemyItems.ForEach(this.engine.CurrentlyActivePlayer.Inventory.Content.Add);
                 enemy.Inventory.Content.Clear();
 
                 this.writer.WriteLine("You picked up:");

@@ -12,17 +12,14 @@
     {
         private readonly DibiloFourContext context;
 
-        private readonly Player activePlayer;
-
-        private readonly IInputReader reader;
+        private readonly IEngine engine;
 
         private readonly IOutputWriter writer;
 
-        public SellCommand(DibiloFourContext context, Player activePlayer, IInputReader reader, IOutputWriter writer)
+        public SellCommand(DibiloFourContext context, IEngine engine, IOutputWriter writer)
         {
             this.context = context;
-            this.activePlayer = activePlayer;
-            this.reader = reader;
+            this.engine = engine;
             this.writer = writer;
             this.Explanation = "If in item shop location list player inventory.";
         }
@@ -34,6 +31,11 @@
 
         public void Execute(string[] args)
         {
+            if (this.engine.CurrentlyActivePlayer == null)
+            {
+                throw new InvalidOperationException("Must be logged in");
+            }
+
             if (!this.HaveHereShops())
             {
                 this.writer.WriteLine("There are not any shops near you.");
@@ -68,13 +70,13 @@
 
         private bool HaveHereShops()
         {
-            bool locationHaveShops = this.context.ItemShops.Any(shop => shop.LocationId == this.activePlayer.CurrentLocationId);
+            bool locationHaveShops = this.context.ItemShops.Any(shop => shop.LocationId == this.engine.CurrentlyActivePlayer.CurrentLocationId);
             return locationHaveShops;
         }
 
         private string ListPlayerInventoryItems()
         {
-            int currentPlayerInventoryId = (int) this.activePlayer.InventoryId;
+            int currentPlayerInventoryId = this.engine.CurrentlyActivePlayer.InventoryId;
             var items = this.context.Inventories.FirstOrDefault(i => i.Id == currentPlayerInventoryId);
 
             StringBuilder output = new StringBuilder();
@@ -89,28 +91,18 @@
 
             return output.ToString().TrimStart();
         }
-
-        private int GetIdFromInput()
-        {
-            //TODO: Твърде много се повтаря, ще е хубаво да е в някакъв отделен клас Utils?
-            this.writer.WriteLine("Input Id: ");
-
-            int id = int.Parse(this.reader.ReadLine());
-
-            return id;
-        }
-
+        
         private bool TryToSellItem(int itemToSellId)
         {
             var shop = this.context.ItemShops.FirstOrDefault(
-                            s => s.LocationId == this.activePlayer.CurrentLocationId);
+                            s => s.LocationId == this.engine.CurrentlyActivePlayer.CurrentLocationId);
 
-            var wantedItem = this.activePlayer.Inventory.Content.FirstOrDefault(item => item.Id == itemToSellId);
+            var wantedItem = this.engine.CurrentlyActivePlayer.Inventory.Content.FirstOrDefault(item => item.Id == itemToSellId);
 
             if (shop.MoneyBalance > wantedItem.Value)
             {
                 shop.Inventory.Content.Add(wantedItem);
-                this.activePlayer.Inventory.Content.Remove(wantedItem);
+                this.engine.CurrentlyActivePlayer.Inventory.Content.Remove(wantedItem);
                 this.context.SaveChanges();
 
                 return true;

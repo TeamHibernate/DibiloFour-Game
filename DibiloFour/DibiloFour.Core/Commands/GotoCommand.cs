@@ -5,6 +5,8 @@
     using System.Linq;
     using System.Text;
     using Data;
+
+    using DibiloFour.Core.Core;
     using DibiloFour.Core.Interfaces;
     using DibiloFour.Models;
     using Models.Dibils;
@@ -13,17 +15,14 @@
     {
         private readonly DibiloFourContext context;
 
-        private readonly Player activePlayer;
-
-        private readonly IInputReader reader;
-
+        private readonly IEngine engine;
+        
         private readonly IOutputWriter writer;
 
-        public GotoCommand(DibiloFourContext context, Player activePlayer, IInputReader reader, IOutputWriter writer)
+        public GotoCommand(DibiloFourContext context, IEngine engine, IOutputWriter writer)
         {
             this.context = context;
-            this.activePlayer = activePlayer;
-            this.reader = reader;
+            this.engine = engine;
             this.writer = writer;
             this.Explanation = "List locations character could go.";
         }
@@ -65,25 +64,15 @@
             return output.ToString();
         }
 
-        private int GetIdFromInput()
-        {
-            this.writer.WriteLine("Input Id: ");
-
-            int id = int.Parse(this.reader.ReadLine());
-
-            return id;
-        }
-
         private void PlayerGoToLocation(int locationId)
         {
-            this.activePlayer.CurrentLocationId = locationId;
+            this.engine.CurrentlyActivePlayer.CurrentLocationId = locationId;
             this.context.SaveChanges();
         }
         
         private string GetPlayerCurrentLocation()
         {
-            int currentPlayerLocationId = this.activePlayer.CurrentLocationId.Value;
-            var location = this.context.Locations.SingleOrDefault(l => l.Id == currentPlayerLocationId);
+            var location = this.engine.CurrentlyActivePlayer.CurrentLocation;
             return $"You are currently located in {location.Name}, {location.Description}";
         }
     }

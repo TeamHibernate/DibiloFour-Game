@@ -7,24 +7,19 @@
     using Data;
 
     using Interfaces;
-    using Models.Dibils;
-    using Models.Items;
 
     public class UseCommand : ICommand
     {
         private readonly DibiloFourContext context;
 
-        private readonly Player activePlayer;
-
-        private readonly IInputReader reader;
-
+        private readonly IEngine engine;
+       
         private readonly IOutputWriter writer;
 
-        public UseCommand(DibiloFourContext context, Player activePlayer, IInputReader reader, IOutputWriter writer)
+        public UseCommand(DibiloFourContext context, IEngine engine, IOutputWriter writer)
         {
             this.context = context;
-            this.activePlayer = activePlayer;
-            this.reader = reader;
+            this.engine = engine;
             this.writer = writer;
             this.Explanation = "List inventory items to use. Usage - use [id]";
         }
@@ -33,6 +28,11 @@
 
         public void Execute(string[] args)
         {
+            if (this.engine.CurrentlyActivePlayer == null)
+            {
+                throw new InvalidOperationException("Must be logged in");
+            }
+
             if (args.Length == 0)
             {
                 this.writer.WriteLine(this.ListPlayerInventoryItems());
@@ -53,7 +53,7 @@
 
         private string ListPlayerInventoryItems()
         {
-            int currentPlayerInventoryId = (int) this.activePlayer.InventoryId;
+            int currentPlayerInventoryId = this.engine.CurrentlyActivePlayer.InventoryId;
             var items = this.context.Inventories.FirstOrDefault(i => i.Id == currentPlayerInventoryId);
             var output = new StringBuilder();
 
@@ -67,14 +67,15 @@
         
         private void ApplyInventoryItem(int itemId)
         {
-            var item = this.activePlayer.Inventory.Content.FirstOrDefault(i => i.Id == itemId);
+            var player = this.engine.CurrentlyActivePlayer;
+            var item = player.Inventory.Content.FirstOrDefault(i => i.Id == itemId);
 
             if (item == null)
             {
                 throw new ArgumentException("Player doesnt have item with id " + itemId);
             }
 
-            item.Use(this.activePlayer);
+            item.Use(player);
         }
     }
 }

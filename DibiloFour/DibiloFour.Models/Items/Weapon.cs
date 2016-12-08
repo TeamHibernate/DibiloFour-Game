@@ -20,7 +20,7 @@
         }
 
         public int BonusDamage { get; set; }
-
+        
         public override void Use(Dibil dibil)
         {
             base.Use(dibil);

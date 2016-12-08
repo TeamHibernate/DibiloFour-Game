@@ -6,23 +6,19 @@
     using System.Text;
     using Data;
     using Interfaces;
-    using Models.Dibils;
 
     public class BuyCommand : ICommand
     {
         private readonly DibiloFourContext context;
 
-        private readonly Player activePlayer;
-
-        private readonly IInputReader reader;
+        private readonly IEngine engine;
 
         private readonly IOutputWriter writer;
 
-        public BuyCommand(DibiloFourContext context, Player activePlayer, IInputReader reader, IOutputWriter writer)
+        public BuyCommand(DibiloFourContext context, IEngine engine, IOutputWriter writer)
         {
             this.context = context;
-            this.activePlayer = activePlayer;
-            this.reader = reader;
+            this.engine = engine;
             this.writer = writer;
             this.Explanation = "If in item shop location list shop inventory.";
         }
@@ -31,6 +27,11 @@
 
         public void Execute(string[] args)
         {
+            if (this.engine.CurrentlyActivePlayer == null)
+            {
+                throw new InvalidOperationException("Must be logged in");
+            }
+
             if (!this.HaveHereShops())
             {
                 this.writer.WriteLine("There are not any shops near you.");
@@ -66,14 +67,13 @@
 
         private bool HaveHereShops()
         {
-            bool locationHaveShops = this.context.ItemShops.Any(shop => shop.LocationId == this.activePlayer.CurrentLocationId);
+            bool locationHaveShops = this.context.ItemShops.Any(shop => shop.LocationId == this.engine.CurrentlyActivePlayer.CurrentLocationId);
             return locationHaveShops;
         }
-
-
+        
         private string ListItemShopInventoryItems()
         {
-            int currentPlayerLocationId = this.activePlayer.CurrentLocationId.Value;
+            int currentPlayerLocationId = this.engine.CurrentlyActivePlayer.CurrentLocationId.Value;
             int currentItemShopInventoryId = this.context.ItemShops
                 .Where(id => id.LocationId == currentPlayerLocationId)
                 .Select(inventory => inventory.InventoryId)
@@ -93,12 +93,12 @@
         {
             var shop =
                 this.context.ItemShops.FirstOrDefault(
-                    s => s.LocationId == this.activePlayer.CurrentLocationId);
+                    s => s.LocationId == this.engine.CurrentlyActivePlayer.CurrentLocationId);
 
             var wantedItem = shop.Inventory.Content.FirstOrDefault(item => item.Id == itemToBuyId);
-            if (this.activePlayer.Coins >= wantedItem.Value)
+            if (this.engine.CurrentlyActivePlayer.Coins >= wantedItem.Value)
             {
-                this.activePlayer.Inventory.Content.Add(wantedItem);
+                this.engine.CurrentlyActivePlayer.Inventory.Content.Add(wantedItem);
                 shop.Inventory.Content.Remove(wantedItem);
 
                 this.context.SaveChanges();

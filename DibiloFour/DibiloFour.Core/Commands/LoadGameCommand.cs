@@ -10,13 +10,13 @@
 
     public class LoadGameCommand : ICommand
     {
-        private readonly Engine engine;
+        private readonly IEngine engine;
 
         private readonly DibiloFourContext context;
 
         private readonly IOutputWriter writer;
 
-        public LoadGameCommand(Engine engine, DibiloFourContext context, IOutputWriter writer)
+        public LoadGameCommand(IEngine engine, DibiloFourContext context, IOutputWriter writer)
         {
             this.engine = engine;
             this.context = context;
