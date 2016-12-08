@@ -8,6 +8,10 @@
     [Table("Books")]
     public class Book : Stuff
     {
+        public Book()
+        {
+            
+        }
         //TODO: add more specifics
         public Book(int id, string name, string description, int weight, decimal value) 
             : base(id, name, description, weight, value)

@@ -22,6 +22,8 @@
             context.LocationTypes.Add(village);
             context.LocationTypes.Add(cave);
 
+            context.SaveChanges();
+
             var noLock = new LockType(1, "No Lock", 0);
             var simpleLock = new LockType(2, "Simple Lock", 5);
             var advancedLock = new LockType(3, "Advanced Lock", 10);
@@ -29,6 +31,8 @@
             context.LockTypes.Add(noLock);
             context.LockTypes.Add(simpleLock);
             context.LockTypes.Add(advancedLock);
+
+            context.SaveChanges();
 
             var sword = new ItemType(1, "Sword");
             var armour = new ItemType(2, "Armour");
@@ -40,6 +44,8 @@
             context.ItemTypes.Add(healthPotion);
             context.ItemTypes.Add(lockpickSkillBook);
 
+            context.SaveChanges();
+
             // Initialize Locations
             var windhelmCity = new Location(1, "Windhelm", "Windy city of Windhelm is located near crystal clear river and has good farming land", 1);
             var helgenVillage = new Location(2, "Helgen", "Helgen is located in the skirts of Snowy Mountain. Home of the best blacksmiths.", 2);
@@ -48,6 +54,8 @@
             context.Locations.Add(windhelmCity);
             context.Locations.Add(helgenVillage);
             context.Locations.Add(banditCave);
+
+            context.SaveChanges();
 
             // Initialize Inventories
             var OwenShopKeeperInventory = new Inventory(1);
@@ -69,8 +77,8 @@
             // проблем
             // Initialize Dibils
             var OwenShopKeeper = new Villain(1, "Owen", 100, 1, OwenShopKeeperInventory);
-            var NaskoTheBandit = new Villain(2, "Nasko", 100, 3, NaskoTheBanditInventory);
-            var KermitTheFarmer = new Villain(3, "Kermit", 100, 4, KermitTheFarmerInventory);
+            var NaskoTheBandit = new Villain(2, "Nasko", 100, 2, NaskoTheBanditInventory);
+            var KermitTheFarmer = new Villain(3, "Kermit", 100, 3, KermitTheFarmerInventory);
 
             context.Villains.Add(OwenShopKeeper);
             context.Villains.Add(NaskoTheBandit);
@@ -95,11 +103,11 @@
             context.SaveChanges();
 
             // Initialize Items
-            var ironSwordInShop = new Weapon(1, "Iron Sword", "Sword made of iron.", Material.Iron, 10, 10, 2);
-            var ironSwordInBandit = new Weapon(2, "Iron Sword", "Sword made of iron. Little used.", Material.Iron, 9, 10, 3);
-            var woodenSwordInKermit = new Weapon(3, "Wooden Sword", "Sword made of wood", Material.Iron, 2, 5, 4);
-            var steelSwordInChestTwo = new Weapon(4, "Steel Sword", "Sword made of steel", Material.Steel, 20, 30, 6);
-            
+            var ironSwordInShop = new Weapon(1, "Iron Sword", "Sword made of iron.", Material.Iron, 10, 10, 2) { Inventory = OwenShopKeeperInventory };
+            var ironSwordInBandit = new Weapon(2, "Iron Sword", "Sword made of iron. Little used.", Material.Iron, 9, 10, 3) { Inventory = NaskoTheBanditInventory };
+            var woodenSwordInKermit = new Weapon(3, "Wooden Sword", "Sword made of wood", Material.Iron, 2, 5, 4) { Inventory = KermitTheFarmerInventory };
+            var steelSwordInChestTwo = new Weapon(4, "Steel Sword", "Sword made of steel", Material.Steel, 20, 30, 6) { Inventory = treasureChestTwo };
+
             context.Weapons.Add(ironSwordInShop);
             context.Weapons.Add(ironSwordInBandit);
             context.Weapons.Add(woodenSwordInKermit);
@@ -107,8 +115,8 @@
 
             context.SaveChanges();
 
-            var ironArmourInShop = new Apprael(1, "Iron Armour", "Armour made of iron.", Material.Iron, 10, 10, 2);
-            
+            var ironArmourInShop = new Apprael(1, "Iron Armour", "Armour made of iron.", Material.Iron, 10, 10, 2) { Inventory = OwenShopInventory };
+
             context.Appraels.Add(ironArmourInShop);
 
             context.SaveChanges();
@@ -116,15 +124,16 @@
             var bookOfMajorLockpickingInChestOne = new Book(1, "Book Of Lockpicking", "Book of major lockpicking", 4, 5)
             {
                 BonusLockpickingSkills = 10,
-                BonusSpeechSkills = 0
+                BonusSpeechSkills = 0,
+                Inventory = treasureChestTwo
             };
 
             context.Books.Add(bookOfMajorLockpickingInChestOne);
 
             context.SaveChanges();
 
-            var potionOfMajorHealthInChestOne = new Potion(1, "Health Potion", "Potion of major health", 3, 100, 10);
-            
+            var potionOfMajorHealthInChestOne = new Potion(1, "Health Potion", "Potion of major health", 3, 100, 10) { Inventory = treasureChestOne };
+
             context.Potions.Add(potionOfMajorHealthInChestOne);
 
             context.SaveChanges();

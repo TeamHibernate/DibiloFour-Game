@@ -8,6 +8,11 @@
     [Table("Weapons")]
     public class Weapon : Arming
     {
+        public Weapon()
+        {
+            
+        }
+
         public Weapon(int id, string name, string description, Material material, int weight, int value, int bonusDamage)
             : base(id, name, description, material, weight, value)
         {

@@ -10,6 +10,11 @@
         private const int DefaultArmour = 0;
         private const int DefaultMoney = 50;
 
+        public Villain()
+        {
+            
+        }
+
         // when creating an ordinary Villain
         public Villain(int id, string name, int locationId, Inventory inventory)
             : base(name, inventory)

@@ -6,6 +6,11 @@
     [Table("Potions")]
     public class Potion : Stuff
     {
+        public Potion()
+        {
+            
+        }
+
         // TODO: add more specifics
         public Potion(int id, string name, string description, int weight, decimal value, int healthValue)
             : base(id, name, description, weight, value)
