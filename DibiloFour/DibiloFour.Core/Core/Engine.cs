@@ -16,7 +16,7 @@
         private IOutputWriter outputWriter;
         private readonly DibiloFourContext context;
 
-        private readonly CommandsManager commandsManager = new CommandsManager();
+        private readonly CommandsManager commandsManager;
         #endregion
 
         #region Constructor
@@ -25,7 +25,7 @@
             this.InputReader = inputReader;
             this.OutputWriter = outputWriter;
             this.context = new DibiloFourContext();
-            this.InitializeCommands();
+            this.commandsManager = new CommandsManager(this.context, this.inputReader, this.outputWriter);
         }
         #endregion
 
@@ -54,25 +54,9 @@
             }
         }
 
-        public Player CurrentlyActivePlayer { get; set; }
         #endregion
 
         #region Methods
-        private void InitializeCommands()
-        {
-            this.commandsManager.AddCommand(new NewGameCommand(this.context, this, this.outputWriter, this.inputReader));
-            this.commandsManager.AddCommand(new LoadGameCommand(this, this.context, this.outputWriter));
-            this.commandsManager.AddCommand(new AttackCommand(this.context, this, this.outputWriter, this.inputReader));
-            this.commandsManager.AddCommand(new BuyCommand(this.context, this, this.outputWriter));
-            this.commandsManager.AddCommand(new ExitCommand(this.outputWriter));
-            this.commandsManager.AddCommand(new GotoCommand(this.context, this, this.outputWriter));
-            this.commandsManager.AddCommand(new OpenCommand(this.context, this, this.outputWriter));
-            this.commandsManager.AddCommand(new SellCommand(this.context, this, this.outputWriter));
-            this.commandsManager.AddCommand(new UseCommand(this.context, this, this.outputWriter));
-            this.commandsManager.AddCommand(new HelpCommand(this.commandsManager, this.outputWriter));
-            this.commandsManager.AddCommand(new DetailsCommand(this, this.outputWriter));
-        }
-
         public void Run()
         {
             if (!this.context.Database.Exists())
@@ -89,8 +73,7 @@
                 this.outputWriter.WriteLine(new string('-', 50));
 
                 var input = this.inputReader.ReadLine()
-                    .Trim()
-                    .ToLower();
+                    .Trim();
 
                 this.outputWriter.ClearScreen();
 
@@ -98,10 +81,10 @@
                 {
                     this.commandsManager.Execute(input);
                 }
-                catch (Exception exception)
+                catch (InvalidOperationException exception)
                 {
                     this.outputWriter.WriteLine(exception.Message);
-                    this.commandsManager.Execute("help");
+                    this.commandsManager.Execute("Help");
                 }
             }
         }
@@ -110,17 +93,17 @@
         {
             StringBuilder output = new StringBuilder();
 
-            var newGameExplanation = this.commandsManager.GetCommandExplanation("newgame");
-            var loadGameExplanation = this.commandsManager.GetCommandExplanation("loadgame");
-            var exitGameExplanation = this.commandsManager.GetCommandExplanation("exit");
+            var newGameExplanation = this.commandsManager.GetCommandExplanation("NewGame");
+            var loadGameExplanation = this.commandsManager.GetCommandExplanation("LoadGame");
+            var exitGameExplanation = this.commandsManager.GetCommandExplanation("Exit");
 
-            output.Append("newgame - ");
+            output.Append("NewGame - ");
             output.AppendLine(newGameExplanation);
 
-            output.Append("loadgame - ");
+            output.Append("LoadGame - ");
             output.AppendLine(loadGameExplanation);
 
-            output.Append("exit - ");
+            output.Append("Exit - ");
             output.AppendLine(exitGameExplanation);
 
             this.OutputWriter.Write(output.ToString());

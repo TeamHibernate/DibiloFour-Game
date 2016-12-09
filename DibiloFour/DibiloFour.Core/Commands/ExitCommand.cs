@@ -3,22 +3,28 @@
 
     using System;
     using System.Threading;
-
+    using Attributes;
+    using Data;
     using DibiloFour.Core.Interfaces;
+    using Models.Dibils;
 
-    public class ExitCommand : ICommand
+    public class ExitCommand : Command
     {
+        [Inject]
+        private readonly DibiloFourContext context;
+        [Inject]
+        private Player currentPlayer;
+        [Inject]
         private readonly IOutputWriter writer;
+        [Inject]
+        private readonly IInputReader reader;
 
-        public ExitCommand(IOutputWriter writer)
+        public ExitCommand(string[] data) : base(data)
         {
-            this.writer = writer;
             this.Explanation = "Exits the game";
         }
 
-        public string Explanation { get; private set; }
-
-        public void Execute(string[] args)
+        public override void Execute()
         {
             this.writer.WriteLine("Bye, bye :)");
             Thread.Sleep(1000);

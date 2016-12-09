@@ -1,91 +1,110 @@
 ﻿namespace DibiloFour.Core.Core
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
+    using System.Reflection;
+    using Attributes;
+    using Commands;
+    using Data;
     using Interfaces;
+    using Models.Dibils;
 
     public class CommandsManager
     {
-        const char CommandArgsDelimiter = ' ';
+        private const string CommandsNamespacePath = "DibiloFour.Core.Commands.";
+        private const string CommandSuffix = "Command";
 
-        const int MinCommandNameLength = 3;
+        private const char CommandArgsDelimiter = ' ';
+        private readonly DibiloFourContext context;
+        private Player currentPlayer;
+        private IInputReader reader;
+        private IOutputWriter writer;
 
-        public string[] AvailableCommands => this.commands.Keys.ToArray();
+        public CommandsManager(DibiloFourContext context, IInputReader reader, IOutputWriter writer)
+        {
+            this.reader = reader;
+            this.writer = writer;
+            this.context = context;
+        }
 
-        readonly Dictionary<string, ICommand> commands = new Dictionary<string, ICommand>();
-        
         public void Execute(string command)
         {
-            var commandData = command.ToLowerInvariant().Split(new char[] { CommandArgsDelimiter }, StringSplitOptions.RemoveEmptyEntries);
+            var commandData = command
+                .Split(new char[] { CommandArgsDelimiter }, StringSplitOptions.RemoveEmptyEntries);
+
             var commandName = commandData[0];
-            
-            if (!this.AvailableCommands.Contains(commandName))
-            {
-                throw new ArgumentException("Invalid command");
-            }
+            string[] commandParams = commandData.Skip(1).ToArray();
 
-            var args = commandData.Skip(1)
-                .ToArray();
+            ICommand cmd = this.DispatchCommand(commandName, commandParams);
 
-            this.commands[commandName].Execute(args);
+            cmd.Execute();
         }
 
-        /// <summary>
-        /// Добавя команда която може да се извиква. Ще се използва името на класа за да я извика. 
-        /// Примерно ако се въведе help, ще потърси за добавена команда от тип HelpCommand 
-        /// </summary>
-        /// <param name="command">Командата която искаш да добавиш</param>
-        public void AddCommand(ICommand command)
+        private ICommand DispatchCommand(string commandName, string[] commandData)
         {
-            if (command == null)
+            string commandFullName = GetCommandFullName(commandName);
+
+            object[] parameters = new object[] { commandData };
+
+            ICommand command = null;
+            try
             {
-                throw new ArgumentNullException();
+                command = (Command)Activator.CreateInstance(Type.GetType(commandFullName), parameters);
+            }
+            catch
+            {
+                throw new InvalidOperationException("Invalid command!");
             }
 
-            var commandType = command.GetType();
-            var commandName = this.GetCommandName(commandType);
-            this.commands.Add(commandName, command);
+            command = this.InjectDependencies(command);
+            return command;
         }
 
-        // Do we actually need this?
-        /// <summary>
-        /// Премахна команда. 
-        /// След като се премахне няма да може да се извиква (очевадно).
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        //private void RemoveCommand<T>() where T : ICommand
-        //{
-        //    var commandType = typeof(T);
-
-        //    this.commands.ToList()
-        //        .Where(c => c.Value.GetType() == commandType)
-        //        .ToList()
-        //        .ForEach(c => this.commands.Remove(c.Key));
-        //}
-
-        internal string GetCommandExplanation(string commandName) 
+        private string GetCommandFullName(string commandName)
         {
-            if (!this.commands.ContainsKey(commandName))
-            {
-                throw new ArgumentException("Command not added");
-            }
-
-            var commandExplanation = this.commands[commandName].Explanation;
-            return commandExplanation;
+            return CommandsNamespacePath + commandName + CommandSuffix;
         }
 
-        private string GetCommandName(Type commandType)
+        private ICommand InjectDependencies(ICommand command)
         {
-            var iCommandType = typeof(ICommand);
+            FieldInfo[] commandFields = command.GetType()
+                                  .GetFields(BindingFlags.Instance | BindingFlags.NonPublic);
 
-            if (!commandType.GetInterfaces().Contains(iCommandType))
+            FieldInfo[] dispatcherFields = typeof(CommandsManager)
+                                              .GetFields(BindingFlags.Instance | BindingFlags.NonPublic);
+
+            foreach (var field in commandFields)
             {
-                throw new ArgumentException("Invalid command type");
+                var fieldAttribute = field.GetCustomAttribute(typeof(InjectAttribute));
+                if (fieldAttribute != null)
+                {
+                    if (dispatcherFields.Any(x => x.FieldType == field.FieldType))
+                    {
+                        field.SetValue(command,
+                            dispatcherFields.First(x => x.FieldType == field.FieldType)
+                            .GetValue(this));
+                    }
+                }
             }
 
-            var commandName = commandType.Name.ToLowerInvariant().Replace("command", "");
-            return commandName;
+            return command;
+        }
+
+        public string GetCommandExplanation(string commandName)
+        {
+            var commandFullName = this.GetCommandFullName(commandName);
+
+            var commandClass = Assembly
+                .GetExecutingAssembly()
+                .GetTypes()
+                .FirstOrDefault(t => typeof(ICommand)
+                    .IsAssignableFrom(t) && t.IsClass && t.FullName == commandFullName);
+
+            var baseClass = commandClass.BaseType;
+            var prop = baseClass.GetProperty("Explanation");
+            var explanation = prop.Name;
+           
+            return explanation.ToString();
         }
     }
 }

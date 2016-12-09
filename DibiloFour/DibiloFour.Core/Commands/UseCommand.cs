@@ -4,43 +4,43 @@
     using System;
     using System.Linq;
     using System.Text;
+    using Attributes;
     using Data;
 
     using Interfaces;
+    using Models.Dibils;
 
-    public class UseCommand : ICommand
+    public class UseCommand : Command
     {
+        [Inject]
         private readonly DibiloFourContext context;
-
-        private readonly IEngine engine;
-       
+        [Inject]
+        private Player currentPlayer;
+        [Inject]
         private readonly IOutputWriter writer;
+        [Inject]
+        private readonly IInputReader reader;
 
-        public UseCommand(DibiloFourContext context, IEngine engine, IOutputWriter writer)
+        public UseCommand(string[] data) : base(data)
         {
-            this.context = context;
-            this.engine = engine;
-            this.writer = writer;
             this.Explanation = "List inventory items to use. Usage - use [id]";
         }
 
-        public string Explanation { get; private set; }
-
-        public void Execute(string[] args)
+        public override void Execute()
         {
-            if (this.engine.CurrentlyActivePlayer == null)
+            if (this.currentPlayer == null)
             {
                 throw new InvalidOperationException("Must be logged in");
             }
 
-            if (args.Length == 0)
+            if (this.Data.Length == 0)
             {
                 this.writer.WriteLine(this.ListPlayerInventoryItems());
                 return;
             }
 
             int id;
-            var isValidNumber = int.TryParse(args[0], out id);
+            var isValidNumber = int.TryParse(this.Data[0], out id);
 
             if (!isValidNumber)
             {
@@ -53,7 +53,7 @@
 
         private string ListPlayerInventoryItems()
         {
-            int currentPlayerInventoryId = this.engine.CurrentlyActivePlayer.InventoryId;
+            int currentPlayerInventoryId = this.currentPlayer.InventoryId;
             var items = this.context.Inventories.FirstOrDefault(i => i.Id == currentPlayerInventoryId);
             var output = new StringBuilder();
 
@@ -67,7 +67,7 @@
         
         private void ApplyInventoryItem(int itemId)
         {
-            var player = this.engine.CurrentlyActivePlayer;
+            var player = this.currentPlayer;
             var item = player.Inventory.Content.FirstOrDefault(i => i.Id == itemId);
 
             if (item == null)

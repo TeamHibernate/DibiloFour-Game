@@ -3,31 +3,31 @@
     using System;
     using System.Linq;
     using System.Text;
-
+    using Attributes;
     using Core;
     using Data;
     using Interfaces;
+    using Models.Dibils;
 
-    public class LoadGameCommand : ICommand
+    public class LoadGameCommand : Command
     {
-        private readonly IEngine engine;
-
+        [Inject]
         private readonly DibiloFourContext context;
-
+        [Inject]
+        private Player currentPlayer;
+        [Inject]
         private readonly IOutputWriter writer;
+        [Inject]
+        private readonly IInputReader reader;
 
-        public LoadGameCommand(IEngine engine, DibiloFourContext context, IOutputWriter writer)
+        public LoadGameCommand(string[] data) : base(data)
         {
-            this.engine = engine;
-            this.context = context;
-            this.writer = writer;
+            this.Explanation = "Load existing character";
         }
 
-        public string Explanation => "Load existing character";
-
-        public void Execute(string[] args)
+        public override void Execute()
         {
-            if (args.Length < 1)
+            if (this.Data.Length < 1)
             {
                 this.writer.WriteLine(this.ListCreatedPlayers());
                 this.writer.WriteLine("Usage loadgame id. Example loadgame 1");
@@ -35,7 +35,7 @@
             }
             
             int id;
-            var isValidNumber = int.TryParse(args[0], out id);
+            var isValidNumber = int.TryParse(this.Data[0], out id);
 
             if (!isValidNumber)
             {
@@ -49,7 +49,7 @@
                 throw new ArgumentException($"Player with id {id} doesnt exists");
             }
 
-            this.engine.CurrentlyActivePlayer = player;
+            this.currentPlayer = player;
             this.writer.WriteLine($"Successfully loaded player {player.Name}");
         }
 

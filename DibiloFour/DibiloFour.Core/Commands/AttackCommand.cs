@@ -5,33 +5,30 @@
     using System.Data.Entity;
     using System.Linq;
     using System.Text;
+    using Attributes;
     using Data;
     using Interfaces;
+    using Models.Dibils;
 
-    public class AttackCommand : ICommand
+    public class AttackCommand : Command
     {
+        [Inject]
         private readonly DibiloFourContext context;
-
-        private readonly IEngine engine;
-
+        [Inject]
+        private Player currentPlayer;
+        [Inject]
         private readonly IOutputWriter writer;
-
+        [Inject]
         private readonly IInputReader reader;
 
-        public AttackCommand(DibiloFourContext context, IEngine engine, IOutputWriter writer, IInputReader reader)
+        public AttackCommand(string[] data) : base(data)
         {
-            this.context = context;
-            this.engine = engine;
-            this.writer = writer;
-            this.reader = reader;
             this.Explanation = " List attackable characters nearby.";
         }
 
-        public string Explanation { get; private set; }
-
-        public void Execute(string[] args)
+        public override void Execute()
         {
-            if (this.engine.CurrentlyActivePlayer == null)
+            if (this.currentPlayer == null)
             {
                 throw new InvalidOperationException("Not logged in.");
             }
@@ -50,7 +47,7 @@
 
         private bool DoesThisPlayerLocationContainCharacters()
         {
-            int currentPlayerLocationId = this.engine.CurrentlyActivePlayer.CurrentLocationId.Value;
+            int currentPlayerLocationId = this.currentPlayer.CurrentLocationId.Value;
             var characters = this.context.Villains.Where(i => i.CurrentLocationId == currentPlayerLocationId);
 
             if (!characters.Any())
@@ -63,7 +60,7 @@
 
         private string ListAttackableCharactersInCurrentPlayerLocation()
         {
-            int currentPlayerLocationId = this.engine.CurrentlyActivePlayer.CurrentLocationId.Value;
+            int currentPlayerLocationId = this.currentPlayer.CurrentLocationId.Value;
             var characters = this.context.Villains.Where(i => i.CurrentLocationId == currentPlayerLocationId);
 
             StringBuilder output = new StringBuilder();
@@ -87,7 +84,7 @@
 
         private void PlayerAttack(int characterId)
         {
-            if (this.engine.CurrentlyActivePlayer == null)
+            if (this.currentPlayer == null)
             {
                 throw new InvalidOperationException("Must be logged in");
             }
@@ -101,7 +98,7 @@
             }
 
             var beforeHealth = enemy.Health;
-            this.engine.CurrentlyActivePlayer.Attack(enemy);
+            this.currentPlayer.Attack(enemy);
 
             var removedHealth = beforeHealth - enemy.Health;
 
@@ -116,10 +113,10 @@
                 var enemyCoins = enemy.Coins;
                 var enemyItems = enemy.Inventory.Content.ToList();
 
-                this.engine.CurrentlyActivePlayer.Coins += enemyCoins;
+                this.currentPlayer.Coins += enemyCoins;
                 enemy.Coins = 0;
 
-                var currentPlayerInventoryId = this.engine.CurrentlyActivePlayer.InventoryId;
+                var currentPlayerInventoryId = this.currentPlayer.InventoryId;
                 var currentPlayerInventory = this.context.Inventories.First(i => i.Id == currentPlayerInventoryId);
 
                 enemyItems.ForEach(currentPlayerInventory.Content.Add);

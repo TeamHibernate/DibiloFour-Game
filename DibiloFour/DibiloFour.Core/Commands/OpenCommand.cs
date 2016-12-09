@@ -5,34 +5,31 @@
     using System.Data.Entity;
     using System.Linq;
     using System.Text;
+    using Attributes;
     using Data;
 
     using Interfaces;
+    using Models.Dibils;
 
-    public class OpenCommand : ICommand
+    public class OpenCommand : Command
     {
+        [Inject]
         private readonly DibiloFourContext context;
-
-        private readonly IEngine engine;
-        
+        [Inject]
+        private Player currentPlayer;
+        [Inject]
         private readonly IOutputWriter writer;
+        [Inject]
+        private readonly IInputReader reader;
 
-        public OpenCommand(DibiloFourContext context, IEngine engine, IOutputWriter writer)
+        public OpenCommand(string[] data) : base(data)
         {
-            this.context = context;
-            this.engine = engine;
-            this.writer = writer;
             this.Explanation = "List chests nearby.";
         }
 
-        public string Explanation
+        public override void Execute()
         {
-            get; private set;
-        }
-
-        public void Execute(string[] args)
-        {
-            if (this.engine.CurrentlyActivePlayer == null)
+            if (this.currentPlayer == null)
             {
                 throw new InvalidOperationException("Must be logged in");
             }
@@ -45,7 +42,7 @@
                 return;
             }
 
-            if (args.Length == 0)
+            if (this.Data.Length == 0)
             {
                 this.writer.WriteLine(this.ListChestsInCurrentPlayerLocation());
                 this.writer.WriteLine("Usage: open id. Example: open 1");
@@ -53,7 +50,7 @@
             }
 
             int chestId;
-            var isValidNumber = int.TryParse(args[0], out chestId);
+            var isValidNumber = int.TryParse(this.Data[0], out chestId);
 
             if (!isValidNumber)
             {
@@ -74,7 +71,7 @@
 
         private bool DoesThisPlayerLocationContainChests()
         {
-            int currentPlayerLocationId = this.engine.CurrentlyActivePlayer.CurrentLocationId.Value;
+            int currentPlayerLocationId = this.currentPlayer.CurrentLocationId.Value;
             var chests = this.context.Chests.Where(i => i.LocationId == currentPlayerLocationId);
 
             if (!chests.Any())
@@ -87,7 +84,7 @@
 
         private string ListChestsInCurrentPlayerLocation()
         {
-            int currentPlayerLocationId = this.engine.CurrentlyActivePlayer.CurrentLocationId.Value;
+            int currentPlayerLocationId = this.currentPlayer.CurrentLocationId.Value;
             var chests = this.context.Chests.Where(i => i.LocationId == currentPlayerLocationId);
             var output = new StringBuilder();
 
@@ -104,7 +101,7 @@
         {
             var chest = this.context.Chests.Include(c => c.LockType).SingleOrDefault(i => i.Id == chestId);
             var chestLock = chest.LockType;
-            return chestLock.SkillLevelRequired <= this.engine.CurrentlyActivePlayer.LockpickingSkill;
+            return chestLock.SkillLevelRequired <= this.currentPlayer.LockpickingSkill;
         }
 
         private void PlayerTakeChestItems(int chestId)
@@ -115,7 +112,7 @@
 
             foreach (var item in chestInventory)
             {
-                item.Inventory = this.engine.CurrentlyActivePlayer.Inventory;
+                item.Inventory = this.currentPlayer.Inventory;
                 this.writer.WriteLine($"Item {item.Name} added to your inventory.");
             }
 

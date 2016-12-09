@@ -1,25 +1,29 @@
 ﻿namespace DibiloFour.Core.Commands
 {
+    using Attributes;
+    using Data;
     using Interfaces;
+    using Models.Dibils;
 
-    public class DetailsCommand : ICommand
+    public class DetailsCommand : Command
     {
-        private readonly IEngine engine;
-
+        [Inject]
+        private readonly DibiloFourContext context;
+        [Inject]
+        private Player currentPlayer;
+        [Inject]
         private readonly IOutputWriter writer;
+        [Inject]
+        private readonly IInputReader reader;
 
-        public DetailsCommand(IEngine engine, IOutputWriter writer)
+        public DetailsCommand(string[] data) : base(data)
         {
-            this.engine = engine;
-            this.writer = writer;
             this.Explanation = "Print details about your character.";
         }
 
-        public string Explanation { get; private set; }
-
-        public void Execute(string[] args)
+        public override void Execute()
         {
-            var currentPlayer = this.engine.CurrentlyActivePlayer;
+            var currentPlayer = this.currentPlayer;
             this.writer.WriteLine(currentPlayer.Details());
         }
     }

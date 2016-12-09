@@ -1,37 +1,34 @@
 ﻿namespace DibiloFour.Core.Commands
 {
-
     using System;
     using System.Linq;
     using System.Text;
+    using Attributes;
     using Data;
 
-    using DibiloFour.Core.Core;
     using DibiloFour.Core.Interfaces;
     using DibiloFour.Models;
     using Models.Dibils;
 
-    public class GotoCommand : ICommand
+    public class GotoCommand : Command
     {
+        [Inject]
         private readonly DibiloFourContext context;
-
-        private readonly IEngine engine;
-        
+        [Inject]
+        private Player currentPlayer;
+        [Inject]
         private readonly IOutputWriter writer;
+        [Inject]
+        private readonly IInputReader reader;
 
-        public GotoCommand(DibiloFourContext context, IEngine engine, IOutputWriter writer)
+        public GotoCommand(string[] data) : base(data)
         {
-            this.context = context;
-            this.engine = engine;
-            this.writer = writer;
             this.Explanation = "List locations character could go.";
         }
 
-        public string Explanation { get; private set; }
-
-        public void Execute(string[] args)
+        public override void Execute()
         {
-            if (args.Length == 0)
+            if (this.Data.Length == 0)
             {
                 this.writer.WriteLine(this.ListLocations());
                 this.writer.WriteLine("Usage: goto id. Example: goto 1");
@@ -39,7 +36,7 @@
             }
 
             int locationId;
-            var isValidNumber = int.TryParse(args[0], out locationId);
+            var isValidNumber = int.TryParse(this.Data[0], out locationId);
 
             if (!isValidNumber)
             {
@@ -73,13 +70,13 @@
                 throw new ArgumentException($"Location with id {locationId} doesnt exists");
             }
 
-            this.engine.CurrentlyActivePlayer.CurrentLocation = location;
+            this.currentPlayer.CurrentLocation = location;
             this.context.SaveChanges();
         }
         
         private string GetPlayerCurrentLocation()
         {
-            var location = this.engine.CurrentlyActivePlayer.CurrentLocation;
+            var location = this.currentPlayer.CurrentLocation;
             return $"You are currently located in {location.Name}, {location.Description}";
         }
     }

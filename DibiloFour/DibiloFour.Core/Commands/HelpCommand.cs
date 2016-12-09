@@ -1,32 +1,41 @@
 ﻿namespace DibiloFour.Core.Commands
 {
-    using Core;
+    using System.Linq;
+    using System.Reflection;
+    using Attributes;
+    using Data;
     using Interfaces;
+    using Models.Dibils;
 
-    public class HelpCommand : ICommand
+    public class HelpCommand : Command
     {
-        private readonly CommandsManager commandsManager;
-
+        [Inject]
+        private readonly DibiloFourContext context;
+        [Inject]
+        private Player currentPlayer;
+        [Inject]
         private readonly IOutputWriter writer;
+        [Inject]
+        private readonly IInputReader reader;
 
-        public HelpCommand(CommandsManager commandsManager, IOutputWriter writer)
+        public HelpCommand(string[] data) :base(data)
         {
-            this.commandsManager = commandsManager;
-            this.writer = writer;
             this.Explanation = "Shows valid commands";
         }
 
-        public string Explanation { get; private set; }
-
-        public void Execute(string[] args)
+        public override void Execute()
         {
             this.writer.WriteLine(new string('-', 50));
-            this.writer.WriteLine("Available Commands");
+            this.writer.WriteLine("Available Commands: ");
 
-            foreach (var command in this.commandsManager.AvailableCommands)
+            var commandClasses = Assembly.GetExecutingAssembly()
+                .GetTypes()
+                .Where(t => typeof(ICommand)
+                .IsAssignableFrom(t) && t.IsClass)
+                .ToList();
+            foreach (var command in commandClasses)
             {
-                var commandExplanation = this.commandsManager.GetCommandExplanation(command);
-                this.writer.WriteLine($"{command} - {commandExplanation}");
+                this.writer.WriteLine($"{command.Name}");
             }
 
             this.writer.WriteLine(new string('-', 50));
