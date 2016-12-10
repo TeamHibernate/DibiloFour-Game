@@ -38,7 +38,7 @@
                 if (command.Name != "Command")
                 {
                     string commandName = command.Name.Remove(command.Name.Length - 7);
-                    this.writer.WriteLine($"{command.Name}");
+                    this.writer.WriteLine($"{commandName}");
                 }
                 
             }
