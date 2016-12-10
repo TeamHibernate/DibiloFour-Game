@@ -6,6 +6,7 @@
     using Data;
     using Interfaces;
     using Models.Dibils;
+    using System;
 
     public class HelpCommand : Command
     {
@@ -35,7 +36,11 @@
                 .ToList();
             foreach (var command in commandClasses)
             {
-                this.writer.WriteLine($"{command.Name}");
+                if (command.Name != "Command")
+                {
+                    string commandName = command.Name.Remove(command.Name.Length - 7);
+                    this.writer.WriteLine($"{commandName}");
+                }
             }
 
             this.writer.WriteLine(new string('-', 50));
