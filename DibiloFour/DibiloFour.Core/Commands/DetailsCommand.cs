@@ -21,10 +21,11 @@
             this.Explanation = "Print details about your character.";
         }
 
-        public override void Execute()
+        public override Player Execute()
         {
-            var currentPlayer = this.currentPlayer;
             this.writer.WriteLine(currentPlayer.Details());
+
+            return this.currentPlayer;
         }
     }
 }

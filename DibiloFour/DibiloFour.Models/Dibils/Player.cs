@@ -34,7 +34,7 @@
         public int LockpickingSkill { get; set; }
 
         [Required]
-        public int SpeechSkill { get; set; }
+        public int SpeechSkill { get; set; } 
 
         public override string Details()
         {

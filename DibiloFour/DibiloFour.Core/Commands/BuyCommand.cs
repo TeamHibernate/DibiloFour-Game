@@ -25,7 +25,7 @@
             this.Explanation = "If in item shop location list shop inventory.";
         }
 
-        public override void Execute()
+        public override Player Execute()
         {
             if (this.currentPlayer == null)
             {
@@ -35,14 +35,16 @@
             if (!this.HaveHereShops())
             {
                 this.writer.WriteLine("There are not any shops near you.");
-                return;
+
+                return this.currentPlayer;
             }
 
             if (this.Data.Length == 0)
             {
                 this.writer.WriteLine(this.ListItemShopInventoryItems());
                 this.writer.WriteLine("Usage buy id. Example buy 1");
-                return;
+
+                return this.currentPlayer;
             }
             
             int id;
@@ -63,6 +65,8 @@
             {
                 this.writer.WriteLine("Successfully purchased item");
             }
+
+            return this.currentPlayer;
         }
 
         private bool HaveHereShops()

@@ -27,7 +27,7 @@
             this.Explanation = "List chests nearby.";
         }
 
-        public override void Execute()
+        public override Player Execute()
         {
             if (this.currentPlayer == null)
             {
@@ -39,14 +39,14 @@
             if (!containChests)
             {
                 this.writer.WriteLine("No chests here.");
-                return;
+                return this.currentPlayer;
             }
 
             if (this.Data.Length == 0)
             {
                 this.writer.WriteLine(this.ListChestsInCurrentPlayerLocation());
                 this.writer.WriteLine("Usage: open id. Example: open 1");
-                return;
+                return this.currentPlayer;
             }
 
             int chestId;
@@ -67,6 +67,8 @@
             {
                 this.writer.WriteLine("Chest lock is too hard to lockpick.");
             }
+
+            return this.currentPlayer;
         }
 
         private bool DoesThisPlayerLocationContainChests()

@@ -37,7 +37,7 @@
 
             ICommand cmd = this.DispatchCommand(commandName, commandParams);
 
-            cmd.Execute();
+            this.currentPlayer = cmd.Execute();
         }
 
         private ICommand DispatchCommand(string commandName, string[] commandData)

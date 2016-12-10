@@ -25,13 +25,13 @@
             this.Explanation = "Load existing character";
         }
 
-        public override void Execute()
+        public override Player Execute()
         {
             if (this.Data.Length < 1)
             {
                 this.writer.WriteLine(this.ListCreatedPlayers());
                 this.writer.WriteLine("Usage loadgame id. Example loadgame 1");
-                return;
+                return this.currentPlayer;
             }
             
             int id;
@@ -51,6 +51,8 @@
 
             this.currentPlayer = player;
             this.writer.WriteLine($"Successfully loaded player {player.Name}");
+
+            return this.currentPlayer;
         }
 
         private string ListCreatedPlayers()

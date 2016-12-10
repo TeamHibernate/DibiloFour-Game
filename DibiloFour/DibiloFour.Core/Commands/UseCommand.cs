@@ -26,7 +26,7 @@
             this.Explanation = "List inventory items to use. Usage - use [id]";
         }
 
-        public override void Execute()
+        public override Player Execute()
         {
             if (this.currentPlayer == null)
             {
@@ -36,7 +36,7 @@
             if (this.Data.Length == 0)
             {
                 this.writer.WriteLine(this.ListPlayerInventoryItems());
-                return;
+                return this.currentPlayer;
             }
 
             int id;
@@ -48,6 +48,8 @@
             }
             
             this.ApplyInventoryItem(id);
+
+            return this.currentPlayer;
         }
         
 

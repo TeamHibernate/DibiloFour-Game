@@ -1,6 +1,7 @@
 ﻿namespace DibiloFour.Core.Commands
 {
     using Interfaces;
+    using Models.Dibils;
 
     public abstract class Command : ICommand
     {
@@ -19,6 +20,6 @@
 
         public string Explanation { get; set; }
 
-        public abstract void Execute();
+        public abstract Player Execute();
     }
 }

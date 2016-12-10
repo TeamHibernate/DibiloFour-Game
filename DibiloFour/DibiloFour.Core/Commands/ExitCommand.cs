@@ -24,11 +24,13 @@
             this.Explanation = "Exits the game";
         }
 
-        public override void Execute()
+        public override Player Execute()
         {
             this.writer.WriteLine("Bye, bye :)");
             Thread.Sleep(1000);
             Environment.Exit(0);
+
+            return this.currentPlayer;
         }
     }
 }

@@ -26,7 +26,7 @@
             this.Explanation = " List attackable characters nearby.";
         }
 
-        public override void Execute()
+        public override Player Execute()
         {
             if (this.currentPlayer == null)
             {
@@ -43,6 +43,8 @@
             {
                 this.writer.WriteLine("No characters here.");
             }
+
+            return this.currentPlayer;
         }
 
         private bool DoesThisPlayerLocationContainCharacters()

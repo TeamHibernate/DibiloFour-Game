@@ -26,13 +26,13 @@
             this.Explanation = "List locations character could go.";
         }
 
-        public override void Execute()
+        public override Player Execute()
         {
             if (this.Data.Length == 0)
             {
                 this.writer.WriteLine(this.ListLocations());
                 this.writer.WriteLine("Usage: goto id. Example: goto 1");
-                return;
+                return this.currentPlayer;
             }
 
             int locationId;
@@ -45,6 +45,8 @@
 
             this.PlayerGoToLocation(locationId);
             this.writer.WriteLine(this.GetPlayerCurrentLocation());
+
+            return this.currentPlayer;
         }
 
         private string ListLocations()

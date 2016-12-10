@@ -23,7 +23,7 @@
             this.Explanation = "Shows valid commands";
         }
 
-        public override void Execute()
+        public override Player Execute()
         {
             this.writer.WriteLine(new string('-', 50));
             this.writer.WriteLine("Available Commands: ");
@@ -39,6 +39,8 @@
             }
 
             this.writer.WriteLine(new string('-', 50));
+
+            return this.currentPlayer;
         }
     }
 }

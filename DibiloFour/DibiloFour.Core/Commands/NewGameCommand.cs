@@ -26,12 +26,14 @@
             this.Explanation = "Creates new character";
         }
 
-        public override void Execute()
+        public override Player Execute()
         {
             this.CreatePlayerCharacter();
             this.writer.WriteLine(SuccessfullyCreatedCharacter);
+
+            return this.currentPlayer;
         }
-        
+
         private void CreatePlayerCharacter()
         {
             this.writer.WriteLine("New character name:");
