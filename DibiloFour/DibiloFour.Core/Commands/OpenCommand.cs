@@ -45,7 +45,7 @@
             if (this.Data.Length == 0)
             {
                 this.writer.WriteLine(this.ListChestsInCurrentPlayerLocation());
-                this.writer.WriteLine("Usage: Open id. Example: Open 1");
+                this.writer.WriteLine("Usage: open id. Example: open 1");
                 return this.currentPlayer;
             }
 

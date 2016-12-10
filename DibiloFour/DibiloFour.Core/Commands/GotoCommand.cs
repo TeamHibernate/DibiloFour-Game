@@ -31,7 +31,7 @@
             if (this.Data.Length == 0)
             {
                 this.writer.WriteLine(this.ListLocations());
-                this.writer.WriteLine("Usage: Goto id. Example: Goto 1");
+                this.writer.WriteLine("Usage: goto id. Example: goto 1");
                 return this.currentPlayer;
             }
 

@@ -125,7 +125,7 @@
                 enemy.Inventory.Content.Clear();
 
                 this.writer.WriteLine("You picked up:");
-                this.writer.WriteLine(enemyCoins + " Coins");
+                this.writer.WriteLine(enemyCoins + " Coints");
 
                 if (enemyItems.Count > 0)
                 {
