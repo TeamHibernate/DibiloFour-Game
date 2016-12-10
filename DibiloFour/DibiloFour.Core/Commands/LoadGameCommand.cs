@@ -30,7 +30,7 @@
             if (this.Data.Length < 1)
             {
                 this.writer.WriteLine(this.ListCreatedPlayers());
-                this.writer.WriteLine("Usage loadgame id. Example loadgame 1");
+                this.writer.WriteLine("Usage LoadGame id. Example LoadGame 1");
                 return this.currentPlayer;
             }
             

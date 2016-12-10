@@ -41,7 +41,7 @@
             if (this.Data.Length == 0)
             {
                 this.writer.WriteLine(this.ListPlayerInventoryItems());
-                this.writer.WriteLine("Usage: sell id. Example: sell 1");
+                this.writer.WriteLine("Usage: Sell id. Example: Sell 1");
                 return this.currentPlayer;
             }
             

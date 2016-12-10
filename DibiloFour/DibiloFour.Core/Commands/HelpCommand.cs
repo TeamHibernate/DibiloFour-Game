@@ -35,7 +35,12 @@
                 .ToList();
             foreach (var command in commandClasses)
             {
-                this.writer.WriteLine($"{command.Name}");
+                if (command.Name != "Command")
+                {
+                    string commandName = command.Name.Remove(command.Name.Length - 7);
+                    this.writer.WriteLine($"{command.Name}");
+                }
+                
             }
 
             this.writer.WriteLine(new string('-', 50));

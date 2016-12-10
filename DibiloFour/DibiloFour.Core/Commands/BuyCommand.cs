@@ -42,7 +42,7 @@
             if (this.Data.Length == 0)
             {
                 this.writer.WriteLine(this.ListItemShopInventoryItems());
-                this.writer.WriteLine("Usage buy id. Example buy 1");
+                this.writer.WriteLine("Usage Buy id. Example Buy 1");
 
                 return this.currentPlayer;
             }
