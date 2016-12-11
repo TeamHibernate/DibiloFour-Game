@@ -4,8 +4,6 @@
 
     public interface ICommand
     {
-        string Explanation { get; }
-
         Player Execute();
     }
 }

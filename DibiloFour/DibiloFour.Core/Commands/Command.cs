@@ -18,8 +18,6 @@
             private set { this.data = value; }
         }
 
-        public string Explanation { get; set; }
-
         public abstract Player Execute();
     }
 }

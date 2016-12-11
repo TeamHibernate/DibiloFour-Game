@@ -93,18 +93,9 @@
         {
             StringBuilder output = new StringBuilder();
 
-            var newGameExplanation = this.commandsManager.GetCommandExplanation("NewGame");
-            var loadGameExplanation = this.commandsManager.GetCommandExplanation("LoadGame");
-            var exitGameExplanation = this.commandsManager.GetCommandExplanation("Exit");
-
-            output.Append("NewGame - ");
-            output.AppendLine(newGameExplanation);
-
-            output.Append("LoadGame - ");
-            output.AppendLine(loadGameExplanation);
-
-            output.Append("Exit - ");
-            output.AppendLine(exitGameExplanation);
+            output.AppendLine("NewGame");
+            output.AppendLine("LoadGame");
+            output.AppendLine("Exit");
 
             this.OutputWriter.Write(output.ToString());
         }

@@ -20,7 +20,6 @@
 
         public HelpCommand(string[] data) :base(data)
         {
-            this.Explanation = "Shows valid commands";
         }
 
         public override Player Execute()
@@ -38,8 +37,7 @@
                 if (command.Name != "Command")
                 {
                     string commandName = command.Name.Remove(command.Name.Length - 7);
-                    this.writer.WriteLine($"{commandName}");
-                }
+this.writer.WriteLine($"-- {commandName}");                }
                 
             }
 

@@ -23,7 +23,6 @@
 
         public UseCommand(string[] data) : base(data)
         {
-            this.Explanation = "List inventory items to use. Usage - use [id]";
         }
 
         public override Player Execute()

@@ -21,7 +21,6 @@
 
         public ExitCommand(string[] data) : base(data)
         {
-            this.Explanation = "Exits the game";
         }
 
         public override Player Execute()

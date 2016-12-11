@@ -18,7 +18,6 @@
 
         public DetailsCommand(string[] data) : base(data)
         {
-            this.Explanation = "Print details about your character.";
         }
 
         public override Player Execute()

@@ -23,7 +23,6 @@
 
         public AttackCommand(string[] data) : base(data)
         {
-            this.Explanation = " List attackable characters nearby.";
         }
 
         public override Player Execute()
@@ -52,12 +51,7 @@
             int currentPlayerLocationId = this.currentPlayer.CurrentLocationId.Value;
             var characters = this.context.Villains.Where(i => i.CurrentLocationId == currentPlayerLocationId);
 
-            if (!characters.Any())
-            {
-                return false;
-            }
-
-            return true;
+            return characters.Any();
         }
 
         private string ListAttackableCharactersInCurrentPlayerLocation()
@@ -86,11 +80,6 @@
 
         private void PlayerAttack(int characterId)
         {
-            if (this.currentPlayer == null)
-            {
-                throw new InvalidOperationException("Must be logged in");
-            }
-
             var enemy = this.context.Villains.Include(v => v.Inventory)
                 .FirstOrDefault(d => d.Id == characterId);
 

@@ -23,7 +23,6 @@
 
         public GotoCommand(string[] data) : base(data)
         {
-            this.Explanation = "List locations character could go.";
         }
 
         public override Player Execute()

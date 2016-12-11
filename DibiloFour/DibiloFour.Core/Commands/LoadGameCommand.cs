@@ -22,7 +22,6 @@
 
         public LoadGameCommand(string[] data) : base(data)
         {
-            this.Explanation = "Load existing character";
         }
 
         public override Player Execute()

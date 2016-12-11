@@ -23,7 +23,6 @@
 
         public NewGameCommand(string[] data) : base(data)
         {
-            this.Explanation = "Creates new character";
         }
 
         public override Player Execute()

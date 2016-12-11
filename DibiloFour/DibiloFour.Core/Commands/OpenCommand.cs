@@ -24,7 +24,6 @@
 
         public OpenCommand(string[] data) : base(data)
         {
-            this.Explanation = "List chests nearby.";
         }
 
         public override Player Execute()

@@ -22,7 +22,6 @@
 
         public BuyCommand(string[] data) : base(data)
         { 
-            this.Explanation = "If in item shop location list shop inventory.";
         }
 
         public override Player Execute()

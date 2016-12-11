@@ -89,22 +89,5 @@
 
             return command;
         }
-
-        public string GetCommandExplanation(string commandName)
-        {
-            var commandFullName = this.GetCommandFullName(commandName);
-
-            var commandClass = Assembly
-                .GetExecutingAssembly()
-                .GetTypes()
-                .FirstOrDefault(t => typeof(ICommand)
-                    .IsAssignableFrom(t) && t.IsClass && t.FullName == commandFullName);
-
-            var baseClass = commandClass.BaseType;
-            var prop = baseClass.GetProperty("Explanation");
-            var explanation = prop.Name;
-           
-            return explanation.ToString();
-        }
     }
 }
